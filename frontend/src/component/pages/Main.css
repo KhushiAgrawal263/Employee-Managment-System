@@ -1,0 +1,181 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Roboto:ital,wght@0,700;1,400&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Poppins&family=Roboto:ital,wght@0,700;1,400&display=swap');
+
+.main {
+    margin-left : 150px;
+    padding-top : 70px;
+    /* border : 2px solid black; */
+    /* text-align: center; */
+}
+
+.mainInfo{
+    display : flex
+}
+
+.mainInfo img {
+    height : 200px;
+    width : 200px;
+    border-radius : 50%;
+    border : 3px solid black;
+    padding: 10px;
+    margin: 30px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.mainInfoName {
+    /* border: 2px solid black; */
+    margin-top : 70px;
+    font-family: 'Roboto', sans-serif;
+} 
+.mainInfoName h1 {
+    font-weight: 700;
+    font-size: 2.8rem
+}
+
+.mainInfoName h3{
+    position : relative;
+    font-weight: 500;
+    font-size : 1.4rem;
+    font-style: italic;
+    color : #858282;
+    top : -10px
+}
+.photoDiv {
+    display: flex;
+    flex-direction : column
+}
+.photoDiv img { 
+    object-fit : cover
+}
+.photoInput {
+    width : 100px;
+    margin-left: 90px;
+    display : none ! important
+}
+
+.personal {
+    display : flex;
+    justify-content : space-between
+}
+
+.personal button {
+    border : none
+}
+.cradElemet button {
+    padding : 5px;
+    width : 120px;
+    border-radius : 5px;
+    color : white;
+    background : black;
+    font-size : 1.2rem;
+    font-weight : 700;
+    border : none;
+    margin-left : 380px;
+}
+.cradElemet button:hover {
+    /* color : black; */
+    background : gray;
+}
+.mainCard {
+    /* width : 500px; */
+}
+.card1 {
+    display : flex
+}
+
+.card {
+    margin: 30px;
+    /* padding : 30px; */
+    width : 50%;
+    /* font-family: 'Roboto', sans-serif; */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    /* background : #f2f0f0 */
+    transition: 1s ease;
+    animation-name : cards;
+    animation-duration : 2s;
+}
+
+
+.card:hover {
+    transform: scale(1.1);
+    transition: 1s ease;
+}
+
+.cardHeading {
+    /* border : 2px solid green; */
+    width : 100%;
+    padding: 20px;
+    font-size: 1.4rem;
+    /* border-bottom: 1px solid #c2c2c2; */
+    /* background : #c2c2c2; */
+    background : #325575;
+    border-radius : 5px;
+    color : white;
+    font-family: 'Roboto', sans-serif;
+}
+.cradElemet {
+    padding : 20px;
+    /* background : #f2f0f0 */
+
+}
+.cardDetails {
+    display : flex;
+    flex-direction : row
+}
+.cardQ {
+    padding-bottom: 10px;
+    font-weight : 700;
+    font-size : 1.2rem
+}
+
+.cardA {
+    font-size : 1.2rem;
+    margin-left : 20px;
+    /* font-weight : 700; */
+}
+
+
+@keyframes cards{
+    from {left : -1000px;}
+    to {left : 0px;}
+}
+
+/* [class*="col-"] {
+    width: 100%;
+  } */
+
+  @media only screen and (max-width: 600px){
+    .main {
+        overflow : hidden
+    }
+    .mainInfo {
+        flex-direction : column
+    }
+    .mainInfoName{
+        margin-top : 40px;
+    }
+    .photoInput{
+        width : 70px
+    }
+    .card1 {
+        /* display : flex; */
+        flex-direction : column;
+        width : 100%;
+        /* border : 2px solid black; */
+        /* margin : 0px; */
+    }
+    .card {
+        margin :10px 0px;
+        width : 95%
+    }
+    .cardDetails {
+        /* display : flex; */
+        flex-directiom : column;
+    }
+    .cardA, .cardQ{
+        font-size : 1rem
+    }
+    .mainSaveButton {
+        border : 2px solid red;
+    }
+}

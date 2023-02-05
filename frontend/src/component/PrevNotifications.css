@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+.prevNotification{
+    padding: 90px 30px 90px 90px;
+}
+
+.adminAllNotification{
+    margin: 30px;
+}
+.adminNotificationHead{
+    display: flex;
+    border-bottom: 2px solid #aeb0af;
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+}
+.adminNotificationHead .alladmin{
+    margin:0px 20px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.allAdminNoti{
+    color: #0651ba;
+    padding: 10px;
+    border-bottom: 3px solid #0651ba;
+}
+
+.unseen-adminNotifcationContent {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    font-weight: 500;
+    font-size: 1.1rem;
+    background-color: #e1eaf7;
+    margin: 5px;
+    border-bottom: 1px solid gray;
+    animation: 1s allNotification;
+}
+
+.seen-adminNotifcationContent {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    font-weight: 500;
+    font-size: 1.1rem;
+    background-color: #f5f8fc;
+    margin: 5px;
+    border-bottom: 1px solid gray;
+    animation: 1s allNotification;
+
+}
+.crossNoti{
+    text-align: right;
+}
+.crossNoti img{
+    height: 20px;
+}
+@keyframes allNotification {
+    from {
+        transform: translate(400px, 0);
+    }
+}

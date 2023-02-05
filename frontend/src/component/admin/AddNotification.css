@@ -1,0 +1,35 @@
+.add-notification{
+    position: absolute;
+    /* border: 2px solid black; */
+    height: 300px;
+    width: 300px;
+    opacity: 1;
+    /* z-index: 9; */
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #faf9f5;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    left: 1200px;
+    animation:  0.8s notificationAnimation;
+}
+.add-notification input{
+    margin: 10px 0px;
+    height: 40px;
+    padding-left: 5px;
+}
+.add-notification select {
+    height: 40px;
+    /* border: none; */
+
+}
+
+.add-notification button {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: white;
+    background-color: #2b8054;
+    border: none;
+    border-radius: 5px;
+}

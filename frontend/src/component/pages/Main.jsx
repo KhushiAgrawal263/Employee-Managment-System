@@ -1,0 +1,242 @@
+import React, { useEffect } from 'react'
+import { useHistory } from "react-router-dom"
+import './Main.css'
+import { useState } from 'react';
+import axios from 'axios'
+import Sidebar from '../Sidebar';
+import NavBar from '../NavBar';
+
+
+const Main = () => {
+    const [data,setData] = useState();
+    const [images, setImages] = useState('Image/girl.jpg');
+    const [edit, setEdit] = useState(false);
+    const [email, setEmail] = useState(data && data.email);
+    const [dob, setDob] = useState();
+    const [address, setAddress] = useState();
+    const [contact, setContact] = useState();
+    const [aadhar, setAadhar] = useState();
+    const [btnState,setBtnState] = useState(false);
+    const [img, setimg] = useState([]);
+
+    const u = 'http://localhost:8000'
+    const user = JSON.parse(localStorage.getItem("EMSuser"));
+    const userId = user.id;
+    const userURL = `${u}/${userId}`; 
+
+    useEffect(() => {
+        const fetchurl= async ()=>{
+            const res = await fetch(userURL,{
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                },
+            });
+            const data = await res.json();
+            setData(data);
+            const base64String = btoa(
+                String.fromCharCode(...new Uint8Array(data.image.data.data))
+              );
+              setimg(base64String);
+        }
+        fetchurl();
+      },[userURL,edit]);
+
+    const imageHandler = (e) => {
+            setImages(e.target.files[0]);
+            setBtnState(true);
+    }
+
+    const submitForm=(e)=>{
+        e.preventDefault();
+        console.log(images);
+        const formData = new FormData();
+        formData.append("image", images);
+
+        axios
+            .post(`http://localhost:8000/upload/${userId}`, formData)
+            .then((res) => {
+            alert("File Upload success");
+            setBtnState(false);
+            window.location.href='/home'
+            })
+            .catch((err) => console.log(err));
+    }
+
+    const EditHandler = () => {
+        setEdit(true);
+    }
+
+    const emailHandler = (e) => {
+         setEmail(e.target.value);
+    }
+
+    const dobHandler = (e) => {
+        setDob(e.target.value);
+    }
+
+    const addressHandler = (e) => {
+        setAddress(e.target.value);
+    }
+
+    const contactHandler = (e) => {
+        setContact(e.target.value);
+    }
+
+    const aadharHandler = (e) => {
+        setAadhar(e.target.value);
+    }
+
+    // update data
+    const PersonalSubmitHandler = async () => {
+        setEdit(false);
+        const val ={
+            email:email,
+            dob:dob,
+            aadharNo :aadhar,
+            address:address,
+            contactNo:contact
+          }
+          console.log(val);
+          const res = await fetch(userURL,{
+              method: 'PUT',
+              headers: {
+                  accept: 'application/json',
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(val)
+          });
+          const data = await res.json();
+          alert("Data Updated successfully");
+          window.location.href='/home'
+    }
+
+  return (
+    <>
+    <Sidebar/>
+    <NavBar/>
+    <div className='main'>
+        <div className='mainInfo'>
+            <div className='photoDiv'> 
+                <img 
+                    src={`data:image/png;base64,${img}`} 
+                    alt="" 
+                /> 
+                    <form>
+                        <label htmlFor="img"
+                        className="btn btn-outline-dark">Upload New Image</label>
+                        <input type="file"  id="img" 
+                        onChange={imageHandler}
+                        className="photoInput" />
+                        {btnState && <button className="btn btn-outline-dark m-2" type='submit' onClick={submitForm} >Upload</button>}
+                    </form>
+            </div>
+
+             <div className='mainInfoName'>
+                <h1>{data && data.name}</h1>
+                <h3>{data && data.designation}</h3>
+             </div>
+        </div>
+        <div className='mainCard'>
+            <div className='card1'>
+            <div className='card '>
+                <div className='cardHeading personal'>Personal Details : 
+                    <button onClick={EditHandler}>
+                        <img src="https://img.icons8.com/ios-glyphs/30/null/pencil--v1.png" alt='img'/>
+                    </button> 
+                </div>
+
+                <div className='cradElemet'>
+                    { edit === true ? (
+                    <div>
+                        <div className='cardDetails'>
+                            <div className='cardQ'>Email id</div> 
+                            <div className='cardA'>: <input 
+                                type='email' 
+                                value = {email} 
+                                onChange={emailHandler}
+                            /> </div>
+                        </div>
+
+                        <div className='cardDetails'>
+                            <div className='cardQ'>Date Of Birth</div> 
+                            <div className='cardA'>:
+                                <input type="date" value = {dob} onChange={dobHandler}/>
+                            </div>
+                        </div>
+                        <div className='cardDetails'>
+                            <div className='cardQ'>Address</div> 
+                            <div className='cardA'>: 
+                                 <input type="text" value = {address} onChange={addressHandler}/>
+                            </div>
+                        </div>
+                        <div className='cardDetails'>
+                            <div className='cardQ'>Contact Number</div> 
+                            <div className='cardA'>: 
+                              <input type="number" value = {contact} onChange={contactHandler}/>
+                            </div>
+                        </div>
+                        <div className='cardDetails'>
+                            <div className='cardQ'>Aadhar Number</div> 
+                            <div className='cardA'>: 
+                              <input type="number" value = {aadhar} onChange={aadharHandler}/>
+                            </div>
+                        </div>
+                        <button
+                                onClick = {PersonalSubmitHandler}
+                            >Save</button>
+                    </div>) : (
+                        <div>
+                            <div className='cardDetails'><div className='cardQ'>Email id</div> <div className='cardA'>: {data && data.email}</div></div>
+                            <div className='cardDetails'><div className='cardQ'>Date Of Birth</div> <div className='cardA'>: {data && data.dob}</div></div>
+                            <div className='cardDetails'><div className='cardQ'>Address</div> <div className='cardA'>: {data && data.address}</div></div>
+                            <div className='cardDetails'><div className='cardQ'>Contact Number</div> <div className='cardA'>: {data && data.contactNo}</div></div>
+                            <div className='cardDetails'><div className='cardQ'>Aadhar Number</div> <div className='cardA'>: {data && data.aadharNo} </div></div>
+                        </div>
+                    )}
+                </div>
+            </div>
+
+
+            <div className='card '>
+                <div className='cardHeading'>Professional Details : </div>
+                <div className='cradElemet'>
+                    <div className='cardDetails'><div className='cardQ'>Joining Date</div> <div className='cardA'>: {data && data.joiningDate}</div></div>
+                    <div className='cardDetails'><div className='cardQ'>Bond Duration</div> <div className='cardA'>: {data && data.bond}</div></div>
+                    <div className='cardDetails'><div className='cardQ'>Registration Number</div> <div className='cardA'>: {data && data.registrationNo}</div></div>
+                    <div className='cardDetails'><div className='cardQ'>Employee ID</div> <div className='cardA'>: {data && data.empId}</div></div>
+                    <div className='cardDetails'><div className='cardQ'>Office Email iD</div> <div className='cardA'>: {data && data.oEmail}</div></div>
+
+                </div>
+            </div>
+            </div>
+
+            <div className='card1'>
+            <div className='card '>
+                <div className='cardHeading'>Bank Details : </div>
+                <div className='cradElemet'>
+                    <div className='cardDetails'><div className='cardQ'>Account Number</div> <div className='cardA'>: {data && data.bankDetails.accNo}</div></div>
+                    <div className='cardDetails'><div className='cardQ'>IFSC Code</div> <div className='cardA'>: {data && data.bankDetails.ifscCode}</div></div>
+                    <div className='cardDetails'><div className='cardQ'>Branch</div> <div className='cardA'>: {data && data.bankDetails.branch} </div></div>
+                    <div className='cardDetails'><div className='cardQ'>Pin Code</div> <div className='cardA'>: {data && data.bankDetails.pinCode}</div></div>
+                </div>
+            </div>
+
+            <div className='card '>
+                <div className='cardHeading'>Projects : </div>
+                <div className='cradElemet'>
+                    {
+                        data && data.taskCompleted.map((task)=>(
+                            <div className='cardDetails' key={task._id}><div className='cardQ'>{task.task}</div></div>
+                        ))
+                    }
+                </div>
+            </div>
+            </div>
+
+        </div>
+    </div>
+    </>)
+}
+
+export default Main

@@ -22,6 +22,8 @@ import Wfh from './component/admin/Wfh'
 import WfhDetail from './component/admin/WfhDetail';
 import Rules from './component/pages/Rules';
 import AdminCal from './component/admin/AdminCal'
+import AdminDoc from "./component/admin/AdminDoc";
+import DocumentDetails from "./component/admin/DocumentDetails";
 
 import Footer from './component/Footer';
 import Error from './component/Error';
@@ -80,6 +82,8 @@ function App( { history } ) {
               <Route path="/reviewWfh" element={<Wfh />} />
               <Route path="/wfhDetails" element={<WfhDetail />} />
               <Route path="/adminCal" element={<AdminCal />} />
+              <Route path="/adminDoc" element={<AdminDoc />} />
+              <Route path="/documentDetails" element={<DocumentDetails />} />
               </>
             }
               <Route path="*" element={<Error />} />

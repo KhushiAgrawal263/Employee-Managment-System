@@ -1,0 +1,62 @@
+.adminDoc{
+    padding: 70px 0px 0px 73px;
+}
+
+.documentDetails {
+    padding : 90px 90px 30px 113px;
+    /* border : 2px solid black; */
+}
+.documentDetails  h3 {
+    font-size : 2rem;
+    font-weight : 700;
+}
+.documentDetails span {
+    color : #1d1f5e;
+    text-shadow: 3px 3px 5px #4c4f4d;
+}
+
+.documentDetails h6{
+    font-size : 1.3rem;
+    font-weight : 700;
+    color : #6b6c80;
+    font-style: italic;
+}
+
+.overallDocumentCard{
+    /* border: 2px solid black; */
+    /* margin: 0px; */
+    padding: 30px;
+}
+
+.documentCard{
+    font-size: 1.2rem;
+    font-weight: 500;
+    /* border: 2px solid red; */
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #e4ecf7;
+}
+
+.documentCard button {
+    border: none;
+    background-color: #e4ecf7;
+}
+.docVeri{
+    width: 30%;
+}
+
+.docButton {
+    /* border: 2px solid red; */
+    text-align: left;
+}
+
+.cancelButton {
+    display: none;
+}
+
+.verifyButton {
+    display: none;
+}

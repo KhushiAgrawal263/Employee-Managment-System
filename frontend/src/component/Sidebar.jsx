@@ -98,6 +98,12 @@ const Sidebar = () => {
                     <img src="https://img.icons8.com/ios-glyphs/30/null/manager.png"/>
                     <div style={{display: isOpen ? "block" : "none"}}>Employee Information</div>
                   </Link>
+
+                  <Link to="/adminDoc"class={display ==  'adminDoc' ? " side_item1" : " side_item"} onClick={() => setDisplay('adminDoc') } title='Document Verification'>
+                    {/* <img src="https://img.icons8.com/ios-glyphs/30/null/manager.png"/> */}
+                    <img src="Image/adminDoc.png" alt="" />
+                    <div style={{display: isOpen ? "block" : "none"}}>Document Verification</div>
+                  </Link>
             
                   <Link to="/addEmployee" class={display ==  'addEmp' ? " side_item1" : " side_item"} onClick={() => setDisplay('addEmp') } title='Add New Employee'> 
                     <img src="https://img.icons8.com/ios-filled/50/null/add-user-male.png"/>

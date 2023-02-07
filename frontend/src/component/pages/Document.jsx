@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Document.css'
 import Sidebar from '../Sidebar';
 import NavBar from '../NavBar';
 
 const Document = () => {
+  const [relievingLetter, setRelievingLetter] = useState("");
+  const [isDisabled, setIsDisabled] = useState(true);
+
+  const changeHandler = () => {
+    setIsDisabled(!isDisabled)
+  }
 
   return (
     <>
@@ -20,60 +26,72 @@ const Document = () => {
                     <th scope="col"> <img src="Image/file.png" alt="" /> Document Name</th>
                     <th scope="col"> <img src="Image/upload.png " alt="" /> Upload</th>
                     <th scope="col"> <img src="Image/attach.png" alt="" /> Attach</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Last Modified</th>
+                    <th scope="col"> <img src="Image/status.png" alt="" /> Status</th>
+                    <th scope="col"> <img src="Image/last.png" alt="" /> Last Modified</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <th scope="row">  Relieving Letter</th>
-                    <td> <input type="file" /> </td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
+                    <td> <input type="file" required /> </td>
+                    <td> <button>Upload</button> </td>
+                    <td> <div className='status' style={{'color' : ' #084cdf'}}>Pending</div> </td>
+                    <td>  <div className='lastDate'>06-02-2023</div> </td>
                   </tr>
                   <tr>
                     <th scope="row">  Aadhar Card</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
+                    <td><input type="file" required /></td>
+                    <td><button>Upload</button></td>
+                    <td> <div className='status' style={{'color' : 'green'}}>Uploaded</div></td>
+                    <td>  <div className='lastDate'>06-02-2023</div> </td>
                   </tr>
                   <tr>
                     <th scope="row">  Pan Card</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
+                    <td><input type="file" required /></td>
+                    <td><button>Upload</button></td>
+                    <td> <div className='status' style={{'color' : 'red'}}>Failed</div> </td>
+                    <td>  <div className='lastDate'>06-02-2023</div> </td>
                   </tr>
 
                   <tr>
                     <th scope="row">  Graduation Marksheet</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
+                    <td><input type="file" required/></td>
+                    <td><button>Upload</button></td>
+                    <td> <div className='status' style={{'color' : ' #084cdf'}}>Pending</div> </td>
+                    <td>  <div className='lastDate'>06-02-2023</div> </td>
                   </tr>
 
                   <tr>
                     <th scope="row">  Senior Secondary Marksheet</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
+                    <td><input type="file" required /></td>
+                    <td><button>Upload</button></td>
+                    <td> <div className='status' style={{'color' : ' #084cdf'}}>Pending</div> </td>
+                    <td>  <div className='lastDate'>06-02-2023</div> </td>
                   </tr>
 
                   <tr>
                     <th scope="row">  Secondary Marksheet</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
+                    <td><input type="file" required/></td>
+                    <td><button>Upload</button></td>
+                    <td> <div className='status' style={{'color' : ' #084cdf'}}>Pending</div> </td>
+                    <td>  <div className='lastDate'>06-02-2023</div> </td>
                   </tr>
 
                   <tr>
                     <th scope="row">  Resume</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
+                    <td><input type="file" required/></td>
+                    <td><button>Upload</button></td>
+                    <td><div className='status' style={{'color' : ' #084cdf'}}>Pending</div> </td>
+                    <td>  <div className='lastDate'>06-02-2023</div> </td>
                   </tr>
 
                 </tbody>
               </table>
+              {/* <div className={isDisabled ? 'documentSubmitN' : 'documentSubmit'}> */}
+              <div className='documentSubmit'>
+
+                <button disabled={isDisabled}> SUBMIT </button>
+              </div>
               </form>
             </div>
 

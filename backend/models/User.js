@@ -55,8 +55,19 @@ const userSchema = mongoose.Schema(
             inHand:{type: Number}
         },
         pendingLeaves:{type:Number,default:0},
-        approvedLeaves:{type:Number,default:0}
+        approvedLeaves:{type:Number,default:0},
+        notifications:[
+            {
+                type:{type:String},
+                message:{type:String},
+                date:{type:String},
+                role:{type:String},
+                status:{type:String},
+                holidayDate:{type:String},
+                id:{type:String}
+            }
+        ]
     }
 )
 
-module.exports = mongoose.model('User',userSchema) 
+module.exports = mongoose.model('User',userSchema) ;

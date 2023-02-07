@@ -124,6 +124,38 @@ const Apply = () => {
                 },
                 body: JSON.stringify(value)
             });
+
+            var today = new Date();
+            var dd = today.getDate();
+    
+            var mm = today.getMonth()+1; 
+            var yyyy = today.getFullYear();
+            if(dd<10) {dd='0'+dd;} 
+            if(mm<10) {mm='0'+mm;} 
+            const date = [dd, mm, yyyy].join('-');
+            // Generate Notifications
+            const notifi = {
+              type:"Leave Applied",
+              message:`${user.name}(${user.empId}) applied for leave.`,
+              date:date,
+              role:"admin",
+              status:"unseen"
+            }
+          console.log(notifi);
+    
+          // update all users notifications
+          const generateNotifi = await fetch('http://localhost:8000/admin/user/addnotifi',{
+                method: 'POST',
+                headers: {
+                    accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(notifi)
+            });
+            const Notifi = await generateNotifi.json();
+            console.log(Notifi);
+
+
             window.location.href='/applyLeaves'
         } catch (error) {
             console.log(error);

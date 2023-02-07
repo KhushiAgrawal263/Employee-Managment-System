@@ -12,6 +12,7 @@ const AddEmployee = () => {
     const [data,setData] = useState();
     const [img, setImg] = useState([]);
     const [loading, setLoading] = useState(false);
+    let image=[];
 
     const userURL = 'http://localhost:8000/'
     useEffect(() => {
@@ -28,20 +29,19 @@ const AddEmployee = () => {
             setCount(data && data.count);
             setData(data && data.user);
             console.log(data);
-            // setData(data);
             console.log(data.count,"count");
-            for(let i=0;i<data.count;i++){
-                console.log(i);
-                const base64String = btoa(
-                    String.fromCharCode(...new Uint8Array(data && data.user[i].image && data.user[i].image.data.data ))
-                  );
-                  setImg(img=>[...img,base64String]);   
-            }
             setLoading(false);
+            for(let i=0;i<data.count;i++){
+                const base64String = btoa(
+                    String.fromCharCode(...new Uint8Array(data && data.user[i].image.data.data ))
+                  );
+                  image.push(base64String);
+                setImg(img=>[...img,base64String]);   
+            }
         }
         fetchurl();
       },[userURL]);
-      console.log(img);
+
   return (
     <>
         <NavBar/>

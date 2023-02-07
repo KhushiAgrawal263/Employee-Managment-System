@@ -2,8 +2,11 @@ const router = require('express').Router();
 const mongoose = require('mongoose')
 const User = require('../models/User');
 const upload = require('../upload');
-const fs = require('fs')
+const fs = require('fs');
 
+// const personEventEmitter = User.watch()
+
+// personEventEmitter.on('change', change => console.log(JSON.stringify(change)))
 
 // upload image
 router.post('/upload/:id',upload.single('image'), async(req,res)=>{
@@ -121,7 +124,7 @@ router.post('/login',async(req,res)=>{
             email: user.email,
             name: user.name,
             role: user.role,
-            empId:user.empId,
+            empId: user.empId
         }
         res.status(200).json(userDetails)
     } catch (err) {
@@ -140,5 +143,169 @@ router.get('/get/user',async(req,res)=>{
         res.status(401).json(error);
     }
 })
+
+
+// find birtday dates of all users
+// const result = await Leave.aggregate([{$project : { array: [ "$approved.date" ] }}]);
+router.get('/get/birthdaydates/users',async(req,res)=>{
+    try {
+        const result = await User.aggregate([{ $match : { role : "user" } },{$project : { array:  "$dob",name:"$name",empId:"$empId"  }}]);
+        res.status(200).json(result)
+    } catch (error) {
+        res.status(401).json(error);
+    }
+})
+
+
+// Add notification to a specific user
+router.post('/user/user/addnotifi/:id',async (req,res)=>{
+    const val = req.body.val;
+    console.log(req.body);
+
+    try {
+        const user = await User.findOneAndUpdate({_id:req.params.id},{$push:{notifications:req.body}},{new:true},
+            function (err, docs) {
+                if (err){
+                    console.log(err)
+                }
+                else{
+                    res.status(200).json(docs);
+                }
+        })
+    } catch (error) {
+        // res.status(500).json(error);
+    }
+})
+
+// Get all unseen notifications of a user
+router.get('/user/get/user/notifi/:id',async(req,res)=>{
+    console.log("hello");
+    try {
+        const result = await User.findOne({_id:req.params.id});
+        const val ={
+            notifications:result.notifications
+        }
+        res.status(200).json(val)
+    } catch (error) {
+        res.status(401).json(error);
+    }
+})
+
+//Add notifications to all the users
+router.post('/user/user/addnotifi/',async (req,res)=>{
+    console.log(req.body);
+    try {
+        const user = await User.updateMany({role:"user"},{$push:{notifications:req.body}},{new:true},
+            function (err, docs) {
+                if (err){
+                    console.log(err)
+                }
+                else{
+                    res.status(200).json(docs);
+                }
+        })
+    } catch (error) {
+        // res.status(500).json(error);
+    }
+})
+
+//Add notification to the admin
+router.post('/admin/user/addnotifi/',async (req,res)=>{
+    // console.log(req.body);
+    try {
+        const user = await User.updateMany({role:"admin"},{$push:{notifications:req.body}},{new:true},
+            function (err, docs) {
+                if (err){
+                    console.log(err)
+                }
+                else{
+                    res.status(200).json(docs);
+                }
+        })
+    } catch (error) {
+        // res.status(500).json(error);
+    }
+})
+
+// get all notifications of admin
+
+// change the status of notification from unseen to seen 
+router.put('/user/user/updatestatus/:id/:notifiId',async (req,res)=>{
+    console.log("req.body");
+    try {
+        const user = await User.updateOne({_id:req.params.id,"notifications._id":req.params.notifiId},{
+            $set: {
+                "notifications.$.status": "seen",
+             }
+        },{new:true},
+            function (err, docs) {
+                if (err){
+                    console.log(err)
+                }
+                else{
+                    res.status(200).json(docs);
+                }
+        })
+        console.log(user);
+    } catch (error) {
+        // res.status(500).json(error);
+    }
+})
+
+
+
+// check if birthday notification exists
+router.get('/birthday/notification/:id',async(req,res)=>{
+    try {
+        const result = await User.find({role:'admin',notifications: {$elemMatch:{type:"Birthday",id:req.params.id}} })
+        res.status(200).json(result)
+
+        // if(result && result.length>0){
+        //     res.status(200).json({result:true})
+        // }else{
+        //     res.status(200).json({result:false})
+        // }
+    } catch (error) {
+        res.status(401).json(error);
+    }
+})
+
+//delete notification
+router.put('/birthday/notification/',async(req,res)=>{
+    try {
+        const result = await User.updateMany({role:'admin'},{ "$pull": { "notifications": {  } }} )
+        res.status(200).json(result)
+    } catch (error) {
+        res.status(401).json(error);
+    }
+})
+
+// Add Birthday notification to the user
+router.post('/admin/user/addnotifi/:id',async (req,res)=>{
+    try {
+        const result = await User.find({role:'admin',notifications: {$elemMatch:{type:"Birthday",id:req.params.id}} })
+        // console.log(result);
+        // res.status(200).json(result)
+
+        if(!result || result.length==0){
+            const user = await User.updateMany({role:"admin"},{$push:{notifications:req.body}},{new:true},
+            function (err, docs) {
+                if (err){
+                    console.log(err)
+                }
+                else{
+                    console.log("upfdahgsh");
+                    res.status(200).json(docs);
+                }
+            })
+        }else{
+            res.status(500).json("Notification already exists...")
+        }
+    } catch (error) {
+        // res.status(500).json(error);
+    }
+})
+
+
 
 module.exports = router;

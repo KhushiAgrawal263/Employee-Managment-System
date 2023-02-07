@@ -18,6 +18,7 @@ const EmployeeAdd = () => {
       travel:0,special:0,pf:0,gross:0,cut:0,inHand:0
     }
   });
+  const [user,setUser] = useState();
   const [btn,setBtn] = useState(false);
   const [btnState,setBtnState] = useState(false);
   const [images, setImages] = useState();
@@ -229,6 +230,7 @@ const EmployeeAdd = () => {
     });
     const data = await res.json();
     console.log(data);
+    setUser(data)
     setBtn(true);
     setId(data._id)
   }
@@ -241,7 +243,7 @@ const EmployeeAdd = () => {
   }
 
   // upload image
-  const submitForm=(e)=>{
+  const submitForm=async (e)=>{
     e.preventDefault();
     const formData = new FormData();
     formData.append("image", images);
@@ -254,19 +256,38 @@ const EmployeeAdd = () => {
         window.location.href='/home'
         })
         .catch((err) => console.log(err));
+
+
+        var today = new Date();
+        var dd = today.getDate();
+
+        var mm = today.getMonth()+1; 
+        var yyyy = today.getFullYear();
+        if(dd<10) {dd='0'+dd;} 
+        if(mm<10) {mm='0'+mm;} 
+        const date = [dd, mm, yyyy].join('-');
+        // Generate Notifications
+        const notifi = {
+          type:"New employee",
+          message:`Say hey! To the new employee, ${user.name}`,
+          date:date,
+          role:"user",
+          status:"unseen"
+      }
+      console.log(notifi);
+
+      // update all users notifications
+      const generateNotifi = await fetch('http://localhost:8000/user/user/addnotifi',{
+            method: 'POST',
+            headers: {
+                accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(notifi)
+        });
+        const Notifi = await generateNotifi.json();
+        console.log(Notifi);
   }
-
-// const handleSubmit = (e) => {
-//   e.preventDefault();
-//   for (var i=0; i<2; i++)
-//   {
-//     if(e.target[i].value == 0)
-//     {
-//       alert("Fill all the details")
-//     }
-//   }
-// }
-
 
   return (
     <>

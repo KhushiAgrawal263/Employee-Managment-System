@@ -13,6 +13,16 @@ const LeavesDetail = () => {
     const location = useLocation();
     const id = location.state.user._id;
 
+    var today = new Date();
+    var dd = today.getDate();
+
+    var mm = today.getMonth()+1; 
+    var yyyy = today.getFullYear();
+    if(dd<10) {dd='0'+dd;} 
+    if(mm<10) {mm='0'+mm;} 
+    const notifidate = [dd, mm, yyyy].join('-');
+    console.log(notifidate);
+
     useEffect(()=>{
         // Fetch user 
         const fetchUser = async()=>{
@@ -83,6 +93,27 @@ const LeavesDetail = () => {
                 }
             });
 
+            // Generate notifications
+            const notifi = {
+                type:"Leave Approved",
+                message:`Your leave for ${date.date} is approved!`,
+                date:notifidate,
+                role:"user",
+                status:"unseen"
+            }
+            console.log(notifi);
+
+            const generateNotifi = await fetch(`http://localhost:8000/user/user/addnotifi/${id}`,{
+                method: 'POST',
+                headers: {
+                    accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(notifi)
+            });
+            const Notifi = await generateNotifi.json();
+            console.log(Notifi);
+
             alert('Leave approved Successfully !!!')
             window.location.href='/leaveDetails'
     }
@@ -113,6 +144,28 @@ const LeavesDetail = () => {
                 'Content-Type': 'application/json'
             }
         });
+
+        // Generate notifications
+        console.log(date.date);
+        const notifi = {
+            type:"Leave Declined",
+            message:`Your leave for ${date.date} is declined!`,
+            date:notifidate,
+            role:"user",
+            status:"unseen"
+        }
+        console.log(notifi);
+
+        const generateNotifi = await fetch(`http://localhost:8000/user/user/addnotifi/${id}`,{
+            method: 'POST',
+            headers: {
+                accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(notifi)
+        });
+        const Notifi = await generateNotifi.json();
+        console.log(Notifi);
 
         alert('Leave declined Successfully !!!')
         window.location.href='/leaveDetails'

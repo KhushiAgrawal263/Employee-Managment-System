@@ -15,6 +15,7 @@ const EmployeeAllNotification = ({props}) => {
     let LeaveUnique=[];
     let weekend=[];
     let NewUserUnique=[];
+    let documentUnique=[];
     uniqueAll.map((leave)=>{
         if(leave.type=='Leave Declined' || leave.type=='Leave Approved'){
             LeaveUnique.push(leave);
@@ -22,6 +23,8 @@ const EmployeeAllNotification = ({props}) => {
             weekend.push(leave);
         }else if(leave.type=='New employee'){
             NewUserUnique.push(leave);
+        }else if(leave.type=='Doc Approved' || leave.type=='Doc approved' || leave.type=='Doc rejected'){
+            documentUnique.push(leave);
         }
     })
     
@@ -33,6 +36,7 @@ const EmployeeAllNotification = ({props}) => {
               <div className={not == 'Leave' ? "alladmin allAdminNoti" : "alladmin"} onClick={() => setNot('Leave')}>Employee Leave</div>
               <div className={not == 'Event' ? "alladmin allAdminNoti" : "alladmin"} onClick={() => setNot('Event')}>Events</div>
               <div className={not == 'welcome' ? "alladmin allAdminNoti" : "alladmin"} onClick={() => setNot('welcome')}>New Employee</div>
+              <div className={not == 'Document' ? "alladmin allAdminNoti" : "alladmin"} onClick={() => setNot('Document')}>Document</div>
           </div>
 
         {
@@ -90,6 +94,22 @@ const EmployeeAllNotification = ({props}) => {
                 <div className='adminNotifcationContent'>
                     {
                         NewUserUnique.length>0 ? NewUserUnique.map((eachnotifi)=>(
+                            <div className='unseen-adminNotifcationContent'>
+                                <div className='notificatoion-text'>{eachnotifi.message}</div>
+                                <div className='notification-date'>{eachnotifi.date}</div>
+                            </div>
+                        )): <p className='no-notifi'>No Notifications </p>
+                    }
+                </div>
+            </>
+        }
+
+    {
+            not == 'Document' &&
+            <>
+                <div className='adminNotifcationContent'>
+                    {
+                        documentUnique.length>0 ? documentUnique.map((eachnotifi)=>(
                             <div className='unseen-adminNotifcationContent'>
                                 <div className='notificatoion-text'>{eachnotifi.message}</div>
                                 <div className='notification-date'>{eachnotifi.date}</div>

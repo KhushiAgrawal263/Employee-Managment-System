@@ -60,3 +60,9 @@
 .verifyButton {
     display: none;
 }
+
+.approve-btn{
+    margin-bottom: 5rem;
+    margin-top: -2.5rem;
+    margin-left: 80rem;
+}

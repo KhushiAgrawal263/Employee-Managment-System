@@ -2,11 +2,8 @@ const router = require('express').Router();
 const mongoose = require('mongoose')
 const User = require('../models/User');
 const upload = require('../upload');
+const uploadFile = require('../uploadFile');
 const fs = require('fs');
-
-// const personEventEmitter = User.watch()
-
-// personEventEmitter.on('change', change => console.log(JSON.stringify(change)))
 
 // upload image
 router.post('/upload/:id',upload.single('image'), async(req,res)=>{
@@ -20,11 +17,151 @@ router.post('/upload/:id',upload.single('image'), async(req,res)=>{
     res.status(200).json(user);
  })
 
+// upload file
+router.post('/uploadFile/:id/:name/:date',uploadFile.single('file'), async(req,res)=>{
+    const objectId = mongoose.Types.ObjectId(req.params.id)
+    const image = {
+        data: fs.readFileSync("uploadFile/" + req.file.filename),
+        contentType: req.file.mimetype,
+        status:'uploaded',
+        lastModified:req.params.date,
+        fileName:req.file.originalname.split(".")[0]
+    }
+    // console.log(image);
+    if(req.params.name=='relievingLetter'){
+        const user = await User.findByIdAndUpdate(objectId,{$set: {'documents.relievingLetter': image},docStatus:'pending'})
+        res.status(200).json(user);
+    }else if(req.params.name=='aadharCard'){
+        const user = await User.findByIdAndUpdate(objectId,{$set: {'documents.aadharCard': image},docStatus:'pending'})
+        res.status(200).json(user);
+    }else if(req.params.name=='panCard'){
+        const user = await User.findByIdAndUpdate(objectId,{$set: {'documents.panCard': image},docStatus:'pending'})
+        res.status(200).json(user);
+    }else if(req.params.name=='graduate'){
+        const user = await User.findByIdAndUpdate(objectId,{$set: {'documents.graduate': image},docStatus:'pending'})
+        res.status(200).json(user);
+    }else if(req.params.name=='tenth'){
+        const user = await User.findByIdAndUpdate(objectId,{$set: {'documents.tenth': image},docStatus:'pending'})
+        res.status(200).json(user);
+    }else if(req.params.name=='twelth'){
+        const user = await User.findByIdAndUpdate(objectId,{$set: {'documents.twelth': image},docStatus:'pending'})
+        res.status(200).json(user);
+    }else if(req.params.name=='resume'){
+        const user = await User.findByIdAndUpdate(objectId,{$set: {'documents.resume': image},docStatus:'pending'})
+        res.status(200).json(user);
+    }
+ })
+
+
+// find users with documents
+router.get('/get/document/users',async(req,res)=>{
+    try {
+        const data = await User.aggregate([{$match:{$or: [{ docStatus: "pending" }, { docStatus: "approved" }]}},{$project:{documents:0,image:0,notifications:0}}]);
+        res.status(200).json(data);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+})
+
+ // update approved status of documents
+ router.put('/approveorreject/document/:id/:name/:type',async(req,res)=>{
+    const field = `documents.${req.params.name}.status`;
+    console.log(req.params.name,req.params.id,req.params.type);
+    try {
+        if(req.params.name=='relievingLetter'){
+            const user = await User.updateMany({_id:req.params.id},{ "$set": { "documents.relievingLetter.status": req.params.type }} )
+            res.status(200).json(user);
+        }else if(req.params.name=='aadharCard'){
+            const user = await User.findByIdAndUpdate({_id:req.params.id},{$set: {'documents.aadharCard.status': req.params.type}})
+            res.status(200).json(user);
+        }else if(req.params.name=='panCard'){
+            const user = await User.findByIdAndUpdate({_id:req.params.id},{$set: {'documents.panCard.status': req.params.type}})
+            res.status(200).json(user);
+        }else if(req.params.name=='graduate'){
+            const user = await User.findByIdAndUpdate({_id:req.params.id},{$set: {'documents.graduate.status': req.params.type}})
+            res.status(200).json(user);
+        }else if(req.params.name=='tenth'){
+            const user = await User.findByIdAndUpdate({_id:req.params.id},{$set: {'documents.tenth.status': req.params.type}})
+            res.status(200).json(user);
+        }else if(req.params.name=='twelth'){
+            const user = await User.findByIdAndUpdate({_id:req.params.id},{$set: {'documents.twelth.status': req.params.type}})
+            res.status(200).json(user);
+        }else if(req.params.name=='resume'){
+            const user = await User.findByIdAndUpdate({_id:req.params.id},{$set: {'documents.resume.status': req.params.type}})
+            res.status(200).json(user);
+        }
+    } catch (error) {
+        res.status(401).json(error);
+    }
+})
+
+// get a particular document of a user
+router.get('/documents/:id/:name',async(req,res)=>{
+    // const user = await User.aggregate([{$match:{ _id: mongoose.Types.ObjectId(req.params.id)}},{$project:{documents:1,experience:1,docStatus:1}}]);
+    const user = await User.aggregate([{$match:{ _id: mongoose.Types.ObjectId(req.params.id)}},{$project:{documents:`$documents.${req.params.name}`}}]);
+    res.status(200).json(user);
+})
+
+
+
+// get status and lastModified of documents of a user
+router.get('/documents/:id',async(req,res)=>{
+    // const user = await User.aggregate([{$match:{ _id: mongoose.Types.ObjectId(req.params.id)}},{$project:{documents:1,experience:1,docStatus:1}}]);
+    const user = await User.aggregate([{$match:{ _id: mongoose.Types.ObjectId(req.params.id)}},{$project:{documents:{
+        relievingLetter:"$documents.relievingLetter.status",
+        aadharCard:"$documents.aadharCard.status",
+        panCard:"$documents.panCard.status",
+        graduate:"$documents.graduate.status",
+        twelth:"$documents.twelth.status",
+        tenth:"$documents.tenth.status",
+        resume:"$documents.resume.status"
+    },lastModified:{
+        relievingLetter:"$documents.relievingLetter.lastModified",
+        aadharCard:"$documents.aadharCard.lastModified",
+        panCard:"$documents.panCard.lastModified",
+        graduate:"$documents.graduate.lastModified",
+        twelth:"$documents.twelth.lastModified",
+        tenth:"$documents.tenth.lastModified",
+        resume:"$documents.resume.lastModified"
+    },experience:1,docStatus:1}}]);
+    res.status(200).json(user);
+})
+
+// get the status of a particular document of a user
+router.get('/documents/:id/:name',async(req,res)=>{
+    const user = await User.aggregate([{$match:{ _id: mongoose.Types.ObjectId(req.params.id)}},{$project:{documents:{
+        relievingLetter:"$documents.relievingLetter.status",
+        aadharCard:"$documents.aadharCard.status",
+        panCard:"$documents.panCard.status",
+        graduate:"$documents.graduate.status",
+        twelth:"$documents.twelth.status",
+        tenth:"$documents.tenth.status",
+        resume:"$documents.resume.status"
+    }}}]);
+    res.status(200).json(user);
+})
+
+
+
+// delete document of a user
+router.put('/delete/document/:id',async(req,res)=>{
+    try {
+        const result = await User.updateMany({_id:req.params.id},{ "$unset": { "documents.relievingLetter": "" }} )
+        res.status(200).json(result)
+    } catch (error) {
+        res.status(401).json(error);
+    }
+})
+
  // get all users
 router.get('/',async(req,res)=>{
-    const user = await User.find({"role":"user"});
+    console.log("nkjbjhbh");
+    // const user = await User.find({"role":"admin"});
+    const user = await User.aggregate([{ $match : { role : "user" } },{$project : {documents:0}}]);
+    console.log(user[0].name);
     const count = await User.count({"role":"user"});
-    res.status(200).json({count, user});
+    console.log("jhghgfhg");
+    res.status(200).json( {count,user});
 })
 
 // get a user
@@ -55,7 +192,9 @@ router.put('/:id',async (req,res)=>{
 // get salary of a user
 router.get('/salary/:id',async (req,res)=>{
     try {
-        const user = await User.findById({_id : req.params.id});
+        // const user = await User.findById({_id : req.params.id});
+        const user = await User.aggregate([{ $match : { role : "user" } },{$project : {documents:0}}]);
+
         if(user){
             res.status(200).json(user.salary);
         }else{
@@ -201,13 +340,34 @@ router.post('/user/user/addnotifi/',async (req,res)=>{
                     console.log(err)
                 }
                 else{
-                    res.status(200).json(docs);
+                    res.status(200).json(true);
                 }
         })
     } catch (error) {
         // res.status(500).json(error);
     }
 })
+
+// Add notifications to all the users expect one 
+router.post('/user/oneuser/addnotifi/:id',async (req,res)=>{
+    console.log(req.params.id);
+    console.log(req.body);
+    try {
+        const user = await User.updateMany({_id:{$ne: req.params.id}},{$push:{notifications:req.body}},{new:true},
+            function (err, docs) {
+                if (err){
+                    console.log(err)
+                }
+                else{
+                    res.status(200).json(true);
+                }
+        })
+        console.log(user);
+    } catch (error) {
+        // res.status(500).json(error);
+    }
+})
+
 
 //Add notification to the admin
 router.post('/admin/user/addnotifi/',async (req,res)=>{
@@ -227,7 +387,6 @@ router.post('/admin/user/addnotifi/',async (req,res)=>{
     }
 })
 
-// get all notifications of admin
 
 // change the status of notification from unseen to seen 
 router.put('/user/user/updatestatus/:id/:notifiId',async (req,res)=>{
@@ -270,7 +429,7 @@ router.get('/birthday/notification/:id',async(req,res)=>{
     }
 })
 
-//delete notification
+//delete notifications of admin
 router.put('/birthday/notification/',async(req,res)=>{
     try {
         const result = await User.updateMany({role:'admin'},{ "$pull": { "notifications": {  } }} )
@@ -280,7 +439,17 @@ router.put('/birthday/notification/',async(req,res)=>{
     }
 })
 
-// Add Birthday notification to the user
+// delete notification of a user
+router.put('/delete/notification/user/:id',async(req,res)=>{
+    try {
+        const result = await User.updateMany({_id:req.params.id},{ "$pull": { "notifications": {  } }} )
+        res.status(200).json(result)
+    } catch (error) {
+        res.status(401).json(error);
+    }
+})
+
+// Add Birthday notification to the admin
 router.post('/admin/user/addnotifi/:id',async (req,res)=>{
     try {
         const result = await User.find({role:'admin',notifications: {$elemMatch:{type:"Birthday",id:req.params.id}} })

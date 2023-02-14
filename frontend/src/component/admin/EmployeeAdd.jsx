@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import './EmployeeAdd.css'
 import Sidebar from '../Sidebar';
 import NavBar from '../NavBar';
 import { useState } from 'react';
 import axios from 'axios';
+import emailjs from 'emailjs-com'
 //validation
 
 
@@ -58,6 +59,9 @@ const EmployeeAdd = () => {
   const[BranchError, setBranchError] = useState(false);
   const[Pin, setPin] = useState();
   const[PinError, setPinError] = useState(false);
+  const form = useRef();
+
+
 
 
   const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -170,16 +174,10 @@ const EmployeeAdd = () => {
         }else {setPinError(false)}
         setPin(eventValue)
         break;
-      
       default :
            break;
-
     }
-
-
   }
-
-
 
   const handleSalary = (e)=>{
     const value = e.target.value;
@@ -217,7 +215,6 @@ const EmployeeAdd = () => {
   };
 
   const submitHandler=async (e)=>{
-    console.log('uygfi8uhiuxdkjc');
     e.preventDefault();
     console.log(val);
     const res = await fetch('http://localhost:8000/register',{
@@ -233,7 +230,7 @@ const EmployeeAdd = () => {
     setUser(data)
     setBtn(true);
     setId(data._id)
-  }
+    }
 
   // get image
   const imageHandler = (e) => {
@@ -253,19 +250,18 @@ const EmployeeAdd = () => {
         .then((res) => {
         alert("File Upload success");
         setBtnState(false);
-        window.location.href='/home'
+        // window.location.href='/home'
         })
         .catch((err) => console.log(err));
 
-
         var today = new Date();
         var dd = today.getDate();
-
         var mm = today.getMonth()+1; 
         var yyyy = today.getFullYear();
         if(dd<10) {dd='0'+dd;} 
         if(mm<10) {mm='0'+mm;} 
         const date = [dd, mm, yyyy].join('-');
+
         // Generate Notifications
         const notifi = {
           type:"New employee",
@@ -277,7 +273,7 @@ const EmployeeAdd = () => {
       console.log(notifi);
 
       // update all users notifications
-      const generateNotifi = await fetch('http://localhost:8000/user/user/addnotifi',{
+      const generateNotifi = await fetch(`http://localhost:8000/user/oneuser/addnotifi/${user._id}`,{
             method: 'POST',
             headers: {
                 accept: 'application/json',
@@ -287,6 +283,20 @@ const EmployeeAdd = () => {
         });
         const Notifi = await generateNotifi.json();
         console.log(Notifi);
+
+        // if(Notifi){
+        //   let template ={
+        //     name:user.name,
+        //     // email:u,
+        //     // message:u
+        //   }
+        //   emailjs.send('service_io91ds2', 'template_0g1pg9a', template, '6qGUvnhs40iNBMVST')
+        //     .then((result) => {
+        //         console.log(result.text);
+        //     }, (error) => {
+        //         console.log(error.text);
+        //   });
+        // }
   }
 
   return (
@@ -303,11 +313,11 @@ const EmployeeAdd = () => {
               </form>
             </div>
         :
-          <form onSubmit={submitHandler} className='employeeAdd'>
+          <form ref={form} onSubmit={submitHandler} className='employeeAdd'>
           <h4>Hi Admin, Add New Employee!</h4>
           
         <div className='pDetails'>
-                <table class="table">
+                <table className="table">
                   <th scope="col">Personal Details :</th>
                   <tbody>
                    <tr>
@@ -371,7 +381,7 @@ const EmployeeAdd = () => {
 
 
               <div className='pDetails'>
-                <table class="table">
+                <table className="table">
                   <th scope="col">Professional Details :</th>
 
                   <tbody>
@@ -385,6 +395,19 @@ const EmployeeAdd = () => {
                           <option value="admin">admin</option>
                         </select>
                         {RoleError ? <span style={{color : 'red'}}> *if you are employee select user field</span> : '' }
+
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Experience : </th>
+                      {/* <td> <input type="text" name='role' onChange={handleChanges}/> </td> */}
+                      <td>
+                        <select  name='experience' onChange={handleChanges} required>
+                          <option value="none" selected disabled hidden>Select ---</option>
+                          <option value="fresher">Fresher</option>
+                          <option value="experienced">Experienced</option>
+                        </select>
+                        {/* {RoleError ? <span style={{color : 'red'}}> *if you are employee select user field</span> : '' } */}
 
                       </td>
                     </tr>
@@ -423,7 +446,7 @@ const EmployeeAdd = () => {
               </div>
 
               <div className='pDetails'>
-                <table class="table">
+                <table className="table">
                   <th scope="col">Bank Details :</th>
 
                   <tbody>

@@ -7,6 +7,7 @@ import NotificationBadge from "react-notification-badge";
 import { Effect } from "react-notification-badge";
 import Pusher from 'pusher-js'
 
+
 function NavBar() {
   const user = JSON.parse(localStorage.getItem("EMSuser"));
   const id = user.id;
@@ -16,7 +17,7 @@ function NavBar() {
   const [eventTrigger,setEventTrigger] = useState(false);
   const [count,setCount] = useState();
   const [unseenUserNotifi,setUnseenUserNotifi] = useState([]);
-  const [seenUserNotifi,setSeenUserNotifi] = useState([]);
+  // const [seenUserNotifi,setSeenUserNotifi] = useState([]);
   const [bdayDates,setBdayDates] = useState([]);
   const [bdayData,setBdaydata] = useState();
   const [status,setStatus] = useState();
@@ -24,6 +25,18 @@ function NavBar() {
   let newdate = new Date().toJSON().slice(0, 10);
   const [year, month, day] = newdate.split('-');
   const today = [day,month, year].join('-');
+
+  const pusher = new Pusher('e9552c2250d8d44dd8fe', {
+        cluster: 'ap2',
+    encrypted: true,
+    });
+    const channel = pusher.subscribe('users');
+      
+    channel.bind('inserted', function(data) {
+      // alert(JSON.stringify(data));
+      console.log("event trioggered");
+      setEvent(true);
+    });
 
  // fetch unseen notifications of employee
  const fetchunseennotifications =async ()=>{
@@ -34,9 +47,7 @@ function NavBar() {
       // console.log(eachnotifi);
       if(eachnotifi.status=="unseen"){
         n++;
-        setUnseenUserNotifi(arr=>[...arr,eachnotifi]);
-      }else{
-        setSeenUserNotifi(arr=>[...arr,seenUserNotifi]);
+        setUnseenUserNotifi(arr=>[eachnotifi,...arr]);
       }
     })
     setCount(n);
@@ -61,7 +72,6 @@ function NavBar() {
               status:"unseen",
               id:bd._id
             }
-  
                 const generateNotifi = await fetch(`http://localhost:8000/admin/user/addnotifi/${bd._id}`,{
                   method: 'POST',
                   headers: {
@@ -78,100 +88,14 @@ function NavBar() {
     }
 
     useEffect(()=>{
+      console.log(event,"before");
+      setEvent(false);
       fetchunseennotifications();
       fetchBirthdayDates();
-      // bdayDates.map(async (bday)=>{
-      //   // console.log(bday);
-      //   const [year, month, day] = bday.array.split('-');
-      //   const result = [day,month, year].join('-');
-      //   var td = new Date();
-      //   var dd = td.getDate();
-      //   var mm = td.getMonth()+1; 
-      //   var yyyy = td.getFullYear();
-      //   if(dd<10) {dd='0'+dd;} 
-      //   if(mm<10) {mm='0'+mm;} 
-      //   const date = [dd, mm, yyyy].join('-');
-      
-      //   // console.log(hour,minutes,second);
-      //   console.log(result,today,"todaysss date");
-      //   if(parseInt(today.slice(3, 5))==parseInt(result.slice(3, 5))){
-      //     if(parseInt(today.slice(0,2))==parseInt(result.slice(0,2))-1){
-      //       console.log("khushih");
-      //       const notifi = {
-      //         type:"Birthday",
-      //         message:`Tomorrow is ${bday.name}'s Birthday`,
-      //         date:date,
-      //         role:"admin",
-      //         status:"unseen",
-      //         id:bday._id
-      //       }
-  
-      //       // const checkNotifi = await fetch(`http://localhost:8000/birthday/notification/${bday._id}`)
-      //       // const data = await checkNotifi.json();
-      //       // console.log(data,"true or false");
-  
-      //       // if(!data && data.length==0){
-      //           const generateNotifi = await fetch(`http://localhost:8000/admin/user/addnotifi/${bday._id}`,{
-      //             method: 'POST',
-      //             headers: {
-      //                 accept: 'application/json',
-      //                 'Content-Type': 'application/json'
-      //             },
-      //             body: JSON.stringify(notifi)
-      //           });
-      //           const Notifi = await generateNotifi.json();
-      //           console.log(Notifi);
-      //     }
-      //   }
-      // })
-    },[])
+      console.log(event,"before");
+    },[event])
   
 
-    // bdayDates.map(async (bday)=>{
-    //   // console.log(bday);
-    //   const [year, month, day] = bday.array.split('-');
-    //   const result = [day,month, year].join('-');
-    //   var td = new Date();
-    //   var dd = td.getDate();
-    //   var mm = td.getMonth()+1; 
-    //   var yyyy = td.getFullYear();
-    //   if(dd<10) {dd='0'+dd;} 
-    //   if(mm<10) {mm='0'+mm;} 
-    //   const date = [dd, mm, yyyy].join('-');
-    //   // console.log(hour,minutes,second);
-    //   // console.log(result,today,"todaysss date");
-    //   if(parseInt(today.slice(3, 5))==parseInt(result.slice(3, 5))){
-    //     if(parseInt(today.slice(0,2))==parseInt(result.slice(0,2))-1){
-    //       const notifi = {
-    //         type:"Birthday",
-    //         message:`Tomorrow is ${bday.name}'s Birthday`,
-    //         date:date,
-    //         role:"admin",
-    //         status:"unseen",
-    //         id:bday._id
-    //       }
-
-    //       // const checkNotifi = await fetch(`http://localhost:8000/birthday/notification/${bday._id}`)
-    //       // const data = await checkNotifi.json();
-    //       // console.log(data,"true or false");
-
-    //       // if(!data && data.length==0){
-    //           const generateNotifi = await fetch(`http://localhost:8000/admin/user/addnotifi/${bday._id}`,{
-    //             method: 'POST',
-    //             headers: {
-    //                 accept: 'application/json',
-    //                 'Content-Type': 'application/json'
-    //             },
-    //             body: JSON.stringify(notifi)
-    //           });
-    //           const Notifi = await generateNotifi.json();
-    //           console.log(Notifi);
-    //     }
-    //   }
-    // })
-
-
-  
   const handleLogout=()=>{
     localStorage.setItem("EMSuser",null);
     window.location.href = '/'
@@ -195,10 +119,8 @@ function NavBar() {
       const dataa = await resd.json();
       console.log(dataa);
     })
-    // setSeenUserNotifi(arr=>[...new Set(arr),...unseenUserNotifi])
     setUnseenUserNotifi([])
     setCount(0)
-    // console.log(seenUserNotifi,"seenusernotifi"); 
     window.location.href='/home'
   }
 // console.log(bday);

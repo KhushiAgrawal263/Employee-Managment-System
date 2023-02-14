@@ -38,7 +38,7 @@ const userSchema = mongoose.Schema(
         email: { type:String},
         bankDetails:{
                 accNo:{type:Number},
-                ifscCode : { type:String },
+                ifscCode :{type:String},
                 branch:{type:String},
                 pinCode: {type:String}
         },
@@ -56,6 +56,8 @@ const userSchema = mongoose.Schema(
         },
         pendingLeaves:{type:Number,default:0},
         approvedLeaves:{type:Number,default:0},
+        docStatus:{type:String,default:'none'},
+        experience:{type:String},
         notifications:[
             {
                 type:{type:String},
@@ -66,7 +68,58 @@ const userSchema = mongoose.Schema(
                 holidayDate:{type:String},
                 id:{type:String}
             }
-        ]
+        ],
+        documents:{
+            relievingLetter:{
+                data: Buffer, 
+                contentType: String,
+                status:{type:String},
+                lastModified:{type:String},
+                fileName:{type:String}
+            },
+            aadharCard:{
+                data: Buffer, 
+                contentType: String,
+                status:{type:String},
+                lastModified:{type:String},
+                fileName:{type:String}
+            },
+            panCard:{
+                data: Buffer, 
+                contentType: String,
+                status:{type:String},
+                lastModified:{type:String},
+                fileName:{type:String}
+            },
+            graduate:{
+                data: Buffer, 
+                contentType: String,
+                status:{type:String},
+                lastModified:{type:String},
+                fileName:{type:String}
+            },
+            tenth:{
+                data: Buffer, 
+                contentType: String,
+                status:{type:String},
+                lastModified:{type:String},
+                fileName:{type:String}
+            },
+            twelth:{
+                data: Buffer, 
+                contentType: String,
+                status:{type:String},
+                lastModified:{type:String},
+                fileName:{type:String}
+            },
+            resume:{
+                data: Buffer, 
+                contentType: String,
+                status:{type:String},
+                lastModified:{type:String},
+                fileName:{type:String}
+            }
+        }
     }
 )
 

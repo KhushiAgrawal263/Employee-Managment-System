@@ -5,6 +5,7 @@ import moment from 'moment';
 import Sidebar from '../Sidebar';
 import NavBar from '../NavBar';
 import axios from 'axios';
+import emailjs from 'emailjs-com'
 
 const Apply = () => {
     const [date, setDate] = useState(new Date())
@@ -20,7 +21,6 @@ const Apply = () => {
 
     const user = JSON.parse(localStorage.getItem("EMSuser"));
     const url = 'http://localhost:8000/leave';
-    console.log(user,"decline");
 
     function getDatesInRange(startDate, endDate) {
         const date = new Date(startDate.getTime());
@@ -155,7 +155,18 @@ const Apply = () => {
             const Notifi = await generateNotifi.json();
             console.log(Notifi);
 
+        //     const form = new FormData();
+        //   form.append('email','ishabam09@gmail.com');
+        //   form.append('name','Khushi agrawal');
+        //   form.append('message','Welcome, Isha Bam');
 
+
+        //   emailjs.sendForm('service_io91ds2', 'template_0g1pg9a', form.current, '6qGUvnhs40iNBMVST')
+        //     .then((result) => {
+        //         console.log(result.text);
+        //     }, (error) => {
+        //         console.log(error.text);
+        //     });
             window.location.href='/applyLeaves'
         } catch (error) {
             console.log(error);

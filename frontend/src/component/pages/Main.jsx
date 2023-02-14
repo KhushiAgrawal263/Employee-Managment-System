@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useHistory } from "react-router-dom"
+import { useLocation } from "react-router-dom"
 import './Main.css'
 import { useState } from 'react';
 import axios from 'axios'
@@ -23,6 +23,15 @@ const Main = () => {
     const user = JSON.parse(localStorage.getItem("EMSuser"));
     const userId = user.id;
     const userURL = `${u}/${userId}`; 
+    const location = useLocation();
+
+    if(user) {
+        window.history.pushState(null, null, location.href);
+        window.onpopstate = function(event) {
+          window.history.go(1);
+        };
+    }
+      
 
     useEffect(() => {
         const fetchurl= async ()=>{
@@ -33,9 +42,10 @@ const Main = () => {
                 },
             });
             const data = await res.json();
+            console.log(data);
             setData(data);
             const base64String = btoa(
-                String.fromCharCode(...new Uint8Array(data.image.data.data))
+                String.fromCharCode(...new Uint8Array(data && data.image.data.data))
               );
               setimg(base64String);
         }

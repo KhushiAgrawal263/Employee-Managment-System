@@ -4,6 +4,7 @@ import './Notifications.css'
 
 const Notifications = (props) => {
     var unseenNotification = props.props.unseen
+    console.log(props.props.unseen);
     const handleClose=()=>{
         props.props.handleCross(true);
     }

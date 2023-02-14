@@ -22,7 +22,7 @@ const PrevNotifications = () => {
       data.notifications.map((eachnotifi)=>{
         if(eachnotifi.status == 'seen'){
             n++;
-            setSeenUserNotifi(arr=>[...arr,eachnotifi]);
+            setSeenUserNotifi(arr=>[eachnotifi,...arr]);
         }
       })
       setCount(n);

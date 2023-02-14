@@ -1,10 +1,18 @@
 .document{
-    padding: 90px;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: white;
+    /* border: 2px solid black; */
 }
+.documentBg{
+  /* border: 2px solid red; */
+  padding: 120px 40px 40px 150px;
 
+}
 .document h2{
     text-align: left;
     margin: 10px;
+    color: #15074e;
 }
 
 .document p{

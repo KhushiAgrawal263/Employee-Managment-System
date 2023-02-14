@@ -12,6 +12,7 @@ return (
   <>
     <Sidebar/>
     <NavBar/>
+    <div className='calendarBg'>
     <div className="calendar">
       <h1 className="Calheader">
       <img src="https://img.icons8.com/color/48/null/overtime.png"/>
@@ -22,6 +23,7 @@ return (
       <div className="text-center">
           Selected date: {date.toDateString()}
       </div>
+    </div>
     </div>
     </>
   )

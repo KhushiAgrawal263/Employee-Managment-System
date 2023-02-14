@@ -9,9 +9,9 @@
     flex-direction: column;
     padding: 20px;
     border-radius: 5px;
-    background-color: #faf9f5;
+    background-color: #ebebfc;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    left: 1200px;
+    left: 1170px;
     animation:  0.8s notificationAnimation;
 }
 .add-notification input{
@@ -26,10 +26,19 @@
 }
 
 .add-notification button {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: white;
-    background-color: #2b8054;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #ebebfc;
+    background-color: #15074e;
     border: none;
     border-radius: 5px;
+    transition: all 0.3s ease-in;
+    border: 2px solid #15074e;
 }
+
+.add-notification button:hover {
+    color: #15074e;
+    background-color: #ebebfc;
+    border: 2px solid #15074e;
+}
+

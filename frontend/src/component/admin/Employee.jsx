@@ -50,9 +50,11 @@ const AddEmployee = () => {
             !loading ? 
         
         <div className='addEmployee'>
-           <div className='addButton'>
-            <p className='count'>Total Employees : {count}</p>
-            </div> 
+           <div className='employeeBG'>
+                <div className='addButton'>
+                    <p className='count'>People</p>
+                    <p className='countNum'> {count}</p>
+                </div> 
 
         <div className='overallCard'>
             {
@@ -62,13 +64,14 @@ const AddEmployee = () => {
                          <div className='mainCardContent'>
                             <h5 className="card-title">{user.name}</h5>
                             <p className="card-text">{user.empId} <br /> {user.oEmail} </p>
-                            <Link to="/EmployeeDetails" className="btn btn-primary " state={{ id: user._id }}>
+                            <Link to="/EmployeeDetails" className=" employeeButton" state={{ id: user._id }}>
                                         View
                             </Link>
                          </div>
                 </div>
             ))}
         </div>
+           </div>
 
         </div> : <Loading />
 }

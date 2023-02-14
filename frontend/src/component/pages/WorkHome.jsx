@@ -8,7 +8,7 @@ import Sidebar from '../Sidebar'
 import NavBar from '../NavBar'
 
 const WorkHome = () => {
-  const [day, setDay] = useState();
+  const [day, setDay] = useState('fullday');
   const [date, setDate] = useState();
   const [todayDate, setTodayDate] = useState();
   const [dateInfo,setDateInfo] = useState(false);
@@ -51,6 +51,7 @@ const WorkHome = () => {
     <>
     <NavBar/>
     <Sidebar />
+    <div className='workHomeBg'>
     <div className='workHome'>
         <h1>WORK FROM HOME TASK LIST!!</h1>
         <div className='workDate'>
@@ -66,13 +67,13 @@ const WorkHome = () => {
                 <>
                   <div>
                     <button 
-                      className="DayBtn btn btn-outline-dark"
+                      className={day == 'fullday' ? 'DayBtn1' : 'DayBtn'}
                       onClick={()=>setDay("fullday")}
                     >
                       Full Day
                     </button>
                     <button 
-                      className="DayBtn btn btn-outline-dark"
+                      className={day == 'halfday' ? 'DayBtn1' : 'DayBtn'}
                       onClick={()=>setDay("halfday") }
                     >
                       Half Day
@@ -87,6 +88,7 @@ const WorkHome = () => {
                 
           </> : <p className='pos'>Select a date...</p>
         }
+    </div>
     </div>
     </>
   )

@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import './Document.css'
 import Sidebar from '../Sidebar';
 import NavBar from '../NavBar';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChain, faClock, faFile, faSortAmountDesc, faUpload } from '@fortawesome/free-solid-svg-icons';
 
 const Document = () => {
   const [relievingLetter, setRelievingLetter] = useState("");
@@ -15,6 +17,7 @@ const Document = () => {
     <>
         <Sidebar />
         <NavBar />
+        <div className='documentBg'>
         <div className='document'>
             <h2>Hey, Isha Bam!</h2>
             <p>Please upload your documents.</p>
@@ -23,11 +26,11 @@ const Document = () => {
               <table class="table">
                 <thead>
                   <tr>
-                    <th scope="col"> <img src="Image/file.png" alt="" /> Document Name</th>
-                    <th scope="col"> <img src="Image/upload.png " alt="" /> Upload</th>
-                    <th scope="col"> <img src="Image/attach.png" alt="" /> Attach</th>
-                    <th scope="col"> <img src="Image/status.png" alt="" /> Status</th>
-                    <th scope="col"> <img src="Image/last.png" alt="" /> Last Modified</th>
+                    <th scope="col"> <FontAwesomeIcon icon={faFile} /> Document Name</th>
+                    <th scope="col"> <FontAwesomeIcon icon={faUpload} /> Upload</th>
+                    <th scope="col"> <FontAwesomeIcon icon={faChain} /> Attach</th>
+                    <th scope="col"> <FontAwesomeIcon icon={faSortAmountDesc} /> Status</th>
+                    <th scope="col"> <FontAwesomeIcon icon={faClock} /> Last Modified</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -94,7 +97,7 @@ const Document = () => {
               </div>
               </form>
             </div>
-
+            </div>
         </div>
     </>
   )

@@ -1,6 +1,27 @@
-.wfh, .wfhDetails {
-    margin-left : 100px;
-    padding-top : 70px;
+.wfh {
+    /* margin: 2px solid black; */
+    padding : 90px 40px 20px 143px;
+    height: 100vh;
+}
+
+.wfhBg {
+    /* border: 2px solid red; */
+    height: 80vh;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: #f9f9fc;
+}
+.wfhDetails {
+    height: 100vh;
+}
+
+.wfhDetailsBg {
+    height: 80vh;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: #f9f9fc;
+    margin : 20px 40px 20px 123px;
+
 }
 
 .wfhDetails {

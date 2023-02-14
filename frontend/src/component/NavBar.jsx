@@ -5,7 +5,9 @@ import './NavBar.css'
 import Notifications from './Notifications';
 import NotificationBadge from "react-notification-badge";
 import { Effect } from "react-notification-badge";
-import Pusher from 'pusher-js'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBell, faLongArrowAltUp, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+// import Pusher from 'pusher-js'
 
 function NavBar() {
   const user = JSON.parse(localStorage.getItem("EMSuser"));
@@ -80,97 +82,8 @@ function NavBar() {
     useEffect(()=>{
       fetchunseennotifications();
       fetchBirthdayDates();
-      // bdayDates.map(async (bday)=>{
-      //   // console.log(bday);
-      //   const [year, month, day] = bday.array.split('-');
-      //   const result = [day,month, year].join('-');
-      //   var td = new Date();
-      //   var dd = td.getDate();
-      //   var mm = td.getMonth()+1; 
-      //   var yyyy = td.getFullYear();
-      //   if(dd<10) {dd='0'+dd;} 
-      //   if(mm<10) {mm='0'+mm;} 
-      //   const date = [dd, mm, yyyy].join('-');
-      
-      //   // console.log(hour,minutes,second);
-      //   console.log(result,today,"todaysss date");
-      //   if(parseInt(today.slice(3, 5))==parseInt(result.slice(3, 5))){
-      //     if(parseInt(today.slice(0,2))==parseInt(result.slice(0,2))-1){
-      //       console.log("khushih");
-      //       const notifi = {
-      //         type:"Birthday",
-      //         message:`Tomorrow is ${bday.name}'s Birthday`,
-      //         date:date,
-      //         role:"admin",
-      //         status:"unseen",
-      //         id:bday._id
-      //       }
-  
-      //       // const checkNotifi = await fetch(`http://localhost:8000/birthday/notification/${bday._id}`)
-      //       // const data = await checkNotifi.json();
-      //       // console.log(data,"true or false");
-  
-      //       // if(!data && data.length==0){
-      //           const generateNotifi = await fetch(`http://localhost:8000/admin/user/addnotifi/${bday._id}`,{
-      //             method: 'POST',
-      //             headers: {
-      //                 accept: 'application/json',
-      //                 'Content-Type': 'application/json'
-      //             },
-      //             body: JSON.stringify(notifi)
-      //           });
-      //           const Notifi = await generateNotifi.json();
-      //           console.log(Notifi);
-      //     }
-      //   }
-      // })
     },[])
   
-
-    // bdayDates.map(async (bday)=>{
-    //   // console.log(bday);
-    //   const [year, month, day] = bday.array.split('-');
-    //   const result = [day,month, year].join('-');
-    //   var td = new Date();
-    //   var dd = td.getDate();
-    //   var mm = td.getMonth()+1; 
-    //   var yyyy = td.getFullYear();
-    //   if(dd<10) {dd='0'+dd;} 
-    //   if(mm<10) {mm='0'+mm;} 
-    //   const date = [dd, mm, yyyy].join('-');
-    //   // console.log(hour,minutes,second);
-    //   // console.log(result,today,"todaysss date");
-    //   if(parseInt(today.slice(3, 5))==parseInt(result.slice(3, 5))){
-    //     if(parseInt(today.slice(0,2))==parseInt(result.slice(0,2))-1){
-    //       const notifi = {
-    //         type:"Birthday",
-    //         message:`Tomorrow is ${bday.name}'s Birthday`,
-    //         date:date,
-    //         role:"admin",
-    //         status:"unseen",
-    //         id:bday._id
-    //       }
-
-    //       // const checkNotifi = await fetch(`http://localhost:8000/birthday/notification/${bday._id}`)
-    //       // const data = await checkNotifi.json();
-    //       // console.log(data,"true or false");
-
-    //       // if(!data && data.length==0){
-    //           const generateNotifi = await fetch(`http://localhost:8000/admin/user/addnotifi/${bday._id}`,{
-    //             method: 'POST',
-    //             headers: {
-    //                 accept: 'application/json',
-    //                 'Content-Type': 'application/json'
-    //             },
-    //             body: JSON.stringify(notifi)
-    //           });
-    //           const Notifi = await generateNotifi.json();
-    //           console.log(Notifi);
-    //     }
-    //   }
-    // })
-
-
   
   const handleLogout=()=>{
     localStorage.setItem("EMSuser",null);
@@ -203,35 +116,72 @@ function NavBar() {
   }
 // console.log(bday);
   return (
-    <>
-      <div className='nav'>
-        <img src={'Image/logo.png'} alt="" />
-        <h1 className='navText'>staffie!</h1>
-        <div className='not'>
-            <div className='notificationBadge' onClick={() => setShowNotification(handleShowNotification)}>
-              {
+
+    <div className='nav'>
+      <div className='userNavBar'>
+        <img src="Image/girl.jpg" alt="" />
+        <div>
+          <p>Admin</p>
+          <span>HR-Manager</span>
+        </div>
+      </div>
+      <div className='navbarButton'>
+        <button  onClick={() => setShowNotification(handleShowNotification)}> 
+            {
                 msgStatus &&  
                 <NotificationBadge
+                className="badge"
                 count={count}
                 effect={Effect.SCALE}
               />
-              }
-               <img src="Image/notification.png" title='Notifications'/>
-            </div>
-            <div className='navNotification'>
+             }
+           {/* <img src="Image/notification.png" title='Notifications'/> */}
+           <FontAwesomeIcon style={{'paddingRight' : '13px'}} icon={faBell}/>
+            Notifications
+        </button>
+        <div className='navNotification'>
               {
                 showNotification ? <Notifications props={{unseen:unseenUserNotifi,handleCross}} /> : " "
               }
-            </div>
         </div>
+        <button onClick={handleLogout}>
+          {/* <img src="Image/logout.png" title="Logout" /> */}
+          <FontAwesomeIcon style={{'paddingRight' : '13px'}} icon={faRightFromBracket} />
+          Logout
+        </button>
 
-        <div>
-          <div className="btn-logout" onClick={handleLogout}> 
-            <img src="Image/logout.png" title="Logout" />
-          </div>
-        </div>
       </div>
-    </>
+    </div>
+
+    // <>
+    //   <div className='nav'>
+    //     <img src={'Image/logo.png'} alt="" />
+    //     <h1 className='navText'>staffie!</h1>
+    //     <div className='not'>
+    //         <div className='notificationBadge' onClick={() => setShowNotification(handleShowNotification)}>
+    //           {
+    //             msgStatus &&  
+    //             <NotificationBadge
+    //             count={count}
+    //             effect={Effect.SCALE}
+    //           />
+    //           }
+    //            <img src="Image/notification.png" title='Notifications'/>
+    //         </div>
+    //         <div className='navNotification'>
+    //           {
+    //             showNotification ? <Notifications props={{unseen:unseenUserNotifi,handleCross}} /> : " "
+    //           }
+    //         </div>
+    //     </div>
+
+    //     <div>
+    //       <div className="btn-logout" onClick={handleLogout}> 
+    //         <img src="Image/logout.png" title="Logout" />
+    //       </div>
+    //     </div>
+    //   </div>
+    // </>
   );
 }
 

@@ -36,6 +36,7 @@ const Wfh = () => {
         {
             !loading ? 
         <div className='wfh'>
+            <div className='wfhBg'>
         <table class="table table-striped levaeTable">
                 <thead>
                     <tr>
@@ -63,6 +64,7 @@ const Wfh = () => {
                     }
                 </tbody>
             </table>
+        </div>
         </div> : <Loading />
 }
     </>

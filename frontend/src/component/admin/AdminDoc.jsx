@@ -9,7 +9,8 @@ const AdminDoc = () => {
     <>
         <Sidebar />
         <NavBar />
-        <div className='adminDoc'>
+        <div  className='adminDoc'>
+        <div className='adminDocBg'>
         <table class="table table-striped levaeTable">
                 <thead>
                     <tr>
@@ -38,6 +39,7 @@ const AdminDoc = () => {
                     </tr>
                 </tbody>
             </table>
+        </div>
         </div>
     </>
   )

@@ -1,11 +1,22 @@
 .calOverallDiv{
   display: flex;
   justify-content: space-between;
-    padding: 90px;
+  padding: 20px;
+  /* border: 2px solid black; */
+  min-height: 85vh;
+  border-radius: 15px;
+  background-color: #f9f9fc;
+
+}
+.calBg {
+  /* border: 2px solid red; */
+  min-height: 100vh;
+  padding : 90px 40px 20px 143px;
+
 }
 .adminCal1{
   opacity: 0.2;
-  width: 90%;
+  width: 80%;
   /* background-color: black; */
 }
 .adminCal {
@@ -107,15 +118,16 @@
   font-family: sans-serif;
   font-weight: 600;
   font-size: 1em;
-  padding: 0.75em 1em;
-  background-color: #eb4034;
-  color: white;
-  border: 0.15em solid #eb4034;
+  /* padding: 0.75em 1em; */
+  padding: 10px;
+  background-color: #15074e;
+  color: #ebebfc;
+  border: 0.15em solid #15074e;
   border-radius: calc(0.75em + 0.5em + 0.15em);
  }
 
  .buttonCal1:hover {
-  color: white;
+  color: #15074e;
  }
 
  .buttonCal {
@@ -127,9 +139,11 @@
   font-family: sans-serif;
   font-weight: 600;
   font-size: 1em;
-  padding: 0.75em 1em;
-  color: #eb4034;
-  border: 0.15em solid #eb4034;
+  /* padding: 0.75em 1em; */
+  padding: 10px;
+  color: #15074e;
+  border: 0.15em solid #15074e;
+  background-color: #ebebfc;
   border-radius: calc(0.75em + 0.5em + 0.15em);
   transition: 4s;
   /* box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px; */
@@ -144,7 +158,7 @@
   border: none;
   border-radius: 40%;
   /* background-color: rgba(0, 0, 255, 0.25); */
-  background-color: #eb4034;
+  background-color: #15074e;
   transition: 4s;
 }
 
@@ -158,7 +172,8 @@
 }
 .buttonCal:hover, .buttonCal:focus {
   
-  color: white;
+  color:#ebebfc;
+  background-color: #15074e;
 }
 .buttonCal:hover:before, .buttonCal:focus:before, .buttonCal:hover:after, .buttonCal:focus:after {
   transform: none;

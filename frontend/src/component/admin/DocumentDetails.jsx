@@ -19,6 +19,7 @@ const DocumentDetails = () => {
         <Sidebar />
         <NavBar />
         <div className='documentDetails'>
+            <div className='documentDetailsBg'>
             <h3>Document details about <span>Isha Bam</span> </h3>
             <h6>45678, Web Developer</h6>
 
@@ -88,6 +89,7 @@ const DocumentDetails = () => {
                 </div>
 
             </div>
+        </div>
         </div>
     </>
   )

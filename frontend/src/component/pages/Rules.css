@@ -1,9 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@500&display=swap');
 .rules{
-    padding-top : 80px;
+    /* padding-top : 80px;
     padding-left: 100px;
-    padding-bottom: 50px;
+    padding-bottom: 50px; */
     /* align-items: center; */
+    padding: 20px;
+    border-radius: 15px;
+    background-color: #f9f9fc;
+}
+
+.rulesBg{
+  padding: 120px 40px 40px 150px;
 }
 
 .ruleCard{

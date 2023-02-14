@@ -2,12 +2,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Poppins&family=Roboto:ital,wght@0,700;1,400&display=swap');
 
 .main {
-    margin-left : 150px;
-    padding-top : 70px;
-    /* border : 2px solid black; */
-    /* text-align: center; */
+    /* border: 2px solid red; */
+    padding: 20px;
+    border-radius: 15px;
+    background-color: #f9f9fc;
 }
+.mainBg {
+    /* border: 2px solid black; */
+    padding: 100px 30px 30px 140px;
 
+}
 .mainInfo{
     display : flex
 }
@@ -16,7 +20,7 @@
     height : 200px;
     width : 200px;
     border-radius : 50%;
-    border : 3px solid black;
+    border : 3px solid #15074e;
     padding: 10px;
     margin: 30px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -53,31 +57,53 @@
     display : none ! important
 }
 
+.mainButtonEdit {
+    color: #f9f9fc;
+    background-color: #15074e;
+    padding: 5px 20px;
+    border-radius: 3px;
+    margin: 10px;
+    height: 35px;
+    transition: all 0.3s ease-in;
+    border: 2px solid #15074e;
+}
+
+.mainButtonEdit:hover {
+    border: 2px solid #15074e;
+    color: #15074e;
+    background-color: #f9f9fc;
+}
+
 .personal {
     display : flex;
     justify-content : space-between
 }
 
 .personal button {
-    border : none
+    color: #f9f9fc;
+    background-color: #15074e;
+    border: none;
 }
 .cradElemet button {
-    padding : 5px;
-    width : 120px;
+    padding : 3px;
+    width : 100px;
     border-radius : 5px;
-    color : white;
-    background : black;
-    font-size : 1.2rem;
+    color : #f9f9fc;
+    background : #15074e;
+    border: 2px solid #15074e;
+    font-size : 1.1rem;
     font-weight : 700;
     border : none;
     margin-left : 380px;
+    margin-top: 10px;
+    transition: all 0.3s ease-in;
 }
 .cradElemet button:hover {
     /* color : black; */
-    background : gray;
-}
-.mainCard {
-    /* width : 500px; */
+    /* background : gray; */
+    color: #15074e;
+    background-color: #f9f9fc;
+    border: 2px solid #15074e;
 }
 .card1 {
     display : flex
@@ -101,6 +127,11 @@
     transition: 1s ease;
 }
 
+.cardBg {
+    /* border: 2px solid red; */
+    /* background-color: #15074e; */
+}
+
 .cardHeading {
     /* border : 2px solid green; */
     width : 100%;
@@ -108,14 +139,18 @@
     font-size: 1.4rem;
     /* border-bottom: 1px solid #c2c2c2; */
     /* background : #c2c2c2; */
-    background : #325575;
-    border-radius : 5px;
-    color : white;
+    background : #15074e;
+    border-radius : 2px;
+    color : #f9f9fc;
     font-family: 'Roboto', sans-serif;
 }
 .cradElemet {
     padding : 20px;
-    /* background : #f2f0f0 */
+    background : #ebebfc;
+    height: 100%;
+    /* margin: 20px; */
+    /* margin-left: 80px; */
+    /* border: 2px solid black; */
 
 }
 .cardDetails {
@@ -123,14 +158,15 @@
     flex-direction : row
 }
 .cardQ {
-    padding-bottom: 10px;
+    padding-bottom: 8px;
     font-weight : 700;
-    font-size : 1.2rem
+    font-size : 1.1rem;
+    width: 40%;
 }
 
 .cardA {
-    font-size : 1.2rem;
-    margin-left : 20px;
+    font-size : 1.1rem;
+    /* margin-left : 20px; */
     /* font-weight : 700; */
 }
 

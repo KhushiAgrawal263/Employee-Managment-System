@@ -35,11 +35,13 @@ const PrevNotifications = () => {
         <NavBar />
         <Sidebar />
         <div className='prevNotification'>
+          <div className='prevNotificationBg'>
             <h4>Notifications</h4>
             <div className='prev-notification-div'> 
                 {
                   role == 'admin' ? <AdminAllNotification props={{notifi:seenUserNotifi,count:count}}/> :<EmployeeAllNotification props={{notifi:seenUserNotifi,count:count}} />
                 }
+            </div>
             </div>
         </div>
     </>

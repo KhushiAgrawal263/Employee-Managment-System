@@ -3,7 +3,12 @@ import './Document.css'
 import Sidebar from '../Sidebar';
 import NavBar from '../NavBar';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import axios from 'axios';
+=======
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChain, faClock, faFile, faSortAmountDesc, faUpload } from '@fortawesome/free-solid-svg-icons';
+>>>>>>> f051f76c866ada332e3adb70fa05569ee2db69cf
 =======
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChain, faClock, faFile, faSortAmountDesc, faUpload } from '@fortawesome/free-solid-svg-icons';

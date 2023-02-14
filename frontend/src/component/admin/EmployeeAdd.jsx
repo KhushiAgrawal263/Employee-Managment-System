@@ -314,8 +314,11 @@ const EmployeeAdd = () => {
             </div>
         :
 <<<<<<< HEAD
+<<<<<<< HEAD
           <form ref={form} onSubmit={submitHandler} className='employeeAdd'>
 =======
+=======
+>>>>>>> f051f76c866ada332e3adb70fa05569ee2db69cf
         <div className='employeeAddBg'>
           <form onSubmit={submitHandler} className='employeeAdd'>
 >>>>>>> f051f76c866ada332e3adb70fa05569ee2db69cf

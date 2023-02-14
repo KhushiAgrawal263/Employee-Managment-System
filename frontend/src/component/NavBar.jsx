@@ -8,7 +8,10 @@ import { Effect } from "react-notification-badge";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell, faLongArrowAltUp, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 // import Pusher from 'pusher-js'
+<<<<<<< HEAD
 
+=======
+>>>>>>> f051f76c866ada332e3adb70fa05569ee2db69cf
 
 function NavBar() {
   const user = JSON.parse(localStorage.getItem("EMSuser"));
@@ -95,11 +98,14 @@ function NavBar() {
       fetchunseennotifications();
       fetchBirthdayDates();
 <<<<<<< HEAD
+<<<<<<< HEAD
       console.log(event,"before");
     },[event])
   
 
 =======
+=======
+>>>>>>> f051f76c866ada332e3adb70fa05569ee2db69cf
     },[])
   
   

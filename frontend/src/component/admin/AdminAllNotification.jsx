@@ -99,6 +99,7 @@ const AdminAllNotification = ({props}) => {
         }
     </div>
     </div>
+    </div>
   )
 }
 

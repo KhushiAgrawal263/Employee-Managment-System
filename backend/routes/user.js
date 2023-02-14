@@ -156,7 +156,6 @@ router.put('/delete/document/:id',async(req,res)=>{
  // get all users
 router.get('/',async(req,res)=>{
     console.log("nkjbjhbh");
-    // const user = await User.find({"role":"admin"});
     const user = await User.aggregate([{ $match : { role : "user" } },{$project : {documents:0}}]);
     console.log(user[0].name);
     const count = await User.count({"role":"user"});

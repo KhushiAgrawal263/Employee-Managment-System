@@ -313,15 +313,10 @@ const EmployeeAdd = () => {
               </form>
             </div>
         :
-<<<<<<< HEAD
-<<<<<<< HEAD
-          <form ref={form} onSubmit={submitHandler} className='employeeAdd'>
-=======
-=======
->>>>>>> f051f76c866ada332e3adb70fa05569ee2db69cf
+
         <div className='employeeAddBg'>
-          <form onSubmit={submitHandler} className='employeeAdd'>
->>>>>>> f051f76c866ada332e3adb70fa05569ee2db69cf
+          <form ref={form} onSubmit={submitHandler} className='employeeAdd'>
+          {/* <form onSubmit={submitHandler} className='employeeAdd'> */}
           <h4>Hi Admin, Add New Employee!</h4>
           
         <div className='pDetails'>

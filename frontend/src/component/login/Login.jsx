@@ -1,6 +1,5 @@
 import React from 'react'
 import './login.css'
-import GIf from './gifs.gif'
 import { useState } from 'react'
 
 const Login = () => {

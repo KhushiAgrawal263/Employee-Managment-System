@@ -176,6 +176,7 @@ const Apply = () => {
         <>
             <Sidebar/>
             <NavBar/>
+            <div className='applyBg'>
             <div className='apply'>
                 <h2>APPLY FOR LEAVE</h2>
                 <div className="applycal">
@@ -265,6 +266,7 @@ const Apply = () => {
                         </div>
                     </form>
                 </div>
+            </div>
             </div>
       </>)
 }

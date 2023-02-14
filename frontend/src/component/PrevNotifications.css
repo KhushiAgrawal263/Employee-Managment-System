@@ -1,6 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
 .prevNotification{
-    padding: 90px 30px 90px 90px;
+    padding: 120px 40px 40px 140px;
+    /* border: 2px solid red; */
+    min-height: 100vh;
+}
+
+.prevNotificationBg{
+    /* border: 2px solid black; */
+    border-radius: 15px;
+    padding: 20px;
+    background-color: #f9f9fc;
+    min-height: 85vh;
 }
 
 .adminAllNotification{
@@ -33,7 +43,7 @@
     padding: 20px;
     font-weight: 500;
     font-size: 1.1rem;
-    background-color: #e1eaf7;
+    background-color: #ebebfc;
     margin: 5px;
     border-bottom: 1px solid gray;
     animation: 1s allNotification;

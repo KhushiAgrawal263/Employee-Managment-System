@@ -313,7 +313,12 @@ const EmployeeAdd = () => {
               </form>
             </div>
         :
+<<<<<<< HEAD
           <form ref={form} onSubmit={submitHandler} className='employeeAdd'>
+=======
+        <div className='employeeAddBg'>
+          <form onSubmit={submitHandler} className='employeeAdd'>
+>>>>>>> f051f76c866ada332e3adb70fa05569ee2db69cf
           <h4>Hi Admin, Add New Employee!</h4>
           
         <div className='pDetails'>
@@ -480,7 +485,7 @@ const EmployeeAdd = () => {
               
               <button className='btn btn-success' type='submit'   >Next</button>
               </form>
-        // </div>
+         </div>
         }
     </>
   )

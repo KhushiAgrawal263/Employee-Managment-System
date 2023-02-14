@@ -57,7 +57,10 @@ const userSchema = mongoose.Schema(
         pendingLeaves:{type:Number,default:0},
         approvedLeaves:{type:Number,default:0},
         docStatus:{type:String,default:'none'},
+<<<<<<< HEAD
         experience:{type:String},
+=======
+>>>>>>> f051f76c866ada332e3adb70fa05569ee2db69cf
         notifications:[
             {
                 type:{type:String},

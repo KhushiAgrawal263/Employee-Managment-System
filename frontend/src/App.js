@@ -90,7 +90,7 @@ function App( { history } ) {
               <Route path="/prevNotification" element={<PrevNotifications />} />
         </Routes>
       </Router>
-      <Footer />
+      {/* <Footer /> */}
 
     </div>
   );

@@ -32,6 +32,7 @@ const ReviewLeave = () => {
         <Sidebar />
         {
             !loading ?
+            <div className='reviewLeaveBg'>
         <div className='reviewLeave'>
             <table class="table table-striped levaeTable">
                 <thead>
@@ -63,6 +64,7 @@ const ReviewLeave = () => {
                     }
                 </tbody>
             </table>
+            </div>
         </div> : <Loading />
     }
     </>

@@ -3,9 +3,9 @@
 .footer div {
     /* border : 2px solid black; */
     text-align : center;
-    padding : 10px;
+    padding : 8px;
     color : darlBlue;
-    background : white;
+    background : #fff;
     /* background-image: linear-gradient(to left, black , blue); */
 
     /* color : white; */

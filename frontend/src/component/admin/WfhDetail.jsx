@@ -54,6 +54,7 @@ const WfhDetail = () => {
         <NavBar/>
         <Sidebar />
         <div className='wfhDetails'>
+            <div className='wfhDetailsBg'>
              <h3>Work From Home details about <span>{user && user.name}</span> </h3>
              <h6>{user && user.empId}, {user && user.designation}</h6>
 
@@ -111,6 +112,7 @@ const WfhDetail = () => {
                   </> : <p className='pos'>Select a date...</p>
                 }     
              </div>
+        </div>
         </div>
     </>
   )

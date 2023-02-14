@@ -11,13 +11,13 @@
     left: 169px;
     width: 0; 
     height: 0; 
-    border-left: 20px solid transparent;
-    border-right: 20px solid transparent;
-    border-bottom: 20px solid #d9d7d7;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 15px solid white;
 }
 
 .overallNotification{
-    background-color: #ebeff5;
+    background-color: white;
     border-radius: 5px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     padding: 10px;
@@ -30,7 +30,8 @@
     padding: 3px;
     margin: 8px;
     animation: 0.8s LinearAnimation;
-    background-color: #98c0eb;
+    background-color: #ebebfc;
+    color: #15074e;
 }
 .seenInnerDiv{
     /* border: 2px solid black; */

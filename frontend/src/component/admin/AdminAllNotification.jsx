@@ -25,6 +25,7 @@ const AdminAllNotification = ({props}) => {
     })
 
   return (
+    <div className='adminAllNotificationBg'>
     <div className='adminAllNotification'>
         <div className='adminNotificationHead'>
             <div className={not == 'All' ? "alladmin allAdminNoti" : "alladmin"} onClick={() => setNot('All')}>All</div>
@@ -96,6 +97,7 @@ const AdminAllNotification = ({props}) => {
                 </div>
             </>
         }
+    </div>
     </div>
   )
 }

@@ -1,6 +1,25 @@
-.reviewLeave, .leaveDetails {
-    margin-left : 100px;
-    padding-top : 70px;
+ .leaveDetails {
+    /* margin : 90px 40px 20px 143px; */
+    /* border: 2px solid black; */
+    border-radius: 15px;
+    background-color: #f9f9fc;
+}
+
+.leaveDetailBg {
+    /* border: 2px solid red; */
+    padding : 90px 40px 20px 143px;
+}
+.reviewLeave {
+    /* border: 2px solid red; */
+    padding: 20px;
+    border-radius: 15px;
+    background-color: #f9f9fc;
+    height: 83vh;
+}
+.reviewLeaveBg{
+    padding : 90px 40px 20px 143px;
+    /* border: 2px solid black; */
+    height: 100vh;
 }
 .levaeTable {
     text-align : center;

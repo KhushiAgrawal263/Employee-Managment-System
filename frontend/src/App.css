@@ -2,8 +2,8 @@
   margin : 0;
   padding : 0;
   box-sizing : border-box;
-  /* background : #f0f0fc;
-  z-index : 1 */
 }
 .App{
+  background-color: #ebebfc;
+  /* min-height: 100vh */
 }

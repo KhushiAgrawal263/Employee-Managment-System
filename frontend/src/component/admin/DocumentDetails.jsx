@@ -171,6 +171,7 @@ const DocumentDetails = () => {
         <Sidebar />
         <NavBar />
         <div className='documentDetails'>
+<<<<<<< HEAD
             <h3>Document details about <span>{user.name}</span> </h3>
             <h6>{user.empId}, {user.designation}</h6>
             { documents && <><div className='overallDocumentCard'>
@@ -220,6 +221,11 @@ const DocumentDetails = () => {
                             }
                         </div>
                     </div>
+=======
+            <div className='documentDetailsBg'>
+            <h3>Document details about <span>Isha Bam</span> </h3>
+            <h6>45678, Web Developer</h6>
+>>>>>>> f051f76c866ada332e3adb70fa05569ee2db69cf
 
                     <div className='documentCard'>
                         <div className='docVeri'>Pan Card</div>
@@ -343,6 +349,7 @@ const DocumentDetails = () => {
                 }
                 
                 </>}
+        </div>
         </div>
     </>
   )

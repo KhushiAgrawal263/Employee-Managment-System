@@ -5,6 +5,8 @@ import { useState } from 'react';
 import axios from 'axios'
 import Sidebar from '../Sidebar';
 import NavBar from '../NavBar';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleInfo, faEdit, faUpload } from '@fortawesome/free-solid-svg-icons';
 
 
 const Main = () => {
@@ -125,6 +127,7 @@ const Main = () => {
     <>
     <Sidebar/>
     <NavBar/>
+    <div className='mainBg'>
     <div className='main'>
         <div className='mainInfo'>
             <div className='photoDiv'> 
@@ -132,27 +135,29 @@ const Main = () => {
                     src={`data:image/png;base64,${img}`} 
                     alt="" 
                 /> 
-                    <form>
-                        <label htmlFor="img"
-                        className="btn btn-outline-dark">Upload New Image</label>
-                        <input type="file"  id="img" 
-                        onChange={imageHandler}
-                        className="photoInput" />
-                        {btnState && <button className="btn btn-outline-dark m-2" type='submit' onClick={submitForm} >Upload</button>}
-                    </form>
             </div>
 
              <div className='mainInfoName'>
                 <h1>{data && data.name}</h1>
                 <h3>{data && data.designation}</h3>
+                <form className='imageUploadForm'>
+                    <label htmlFor="img"
+                    className="mainButtonEdit"> <FontAwesomeIcon icon={faEdit}/> </label>
+                    <input type="file"  id="img" 
+                    onChange={imageHandler}
+                    className="photoInput" />
+                    {btnState && <button className="mainButtonEdit" type='submit' onClick={submitForm} > 
+                        <FontAwesomeIcon icon={faUpload} /> </button>}
+                </form>
              </div>
+
         </div>
         <div className='mainCard'>
             <div className='card1'>
             <div className='card '>
-                <div className='cardHeading personal'>Personal Details : 
+                <div className='cardHeading personal'> Personal Details : 
                     <button onClick={EditHandler}>
-                        <img src="https://img.icons8.com/ios-glyphs/30/null/pencil--v1.png" alt='img'/>
+                        <FontAwesomeIcon icon={faEdit} />
                     </button> 
                 </div>
 
@@ -210,13 +215,14 @@ const Main = () => {
 
             <div className='card '>
                 <div className='cardHeading'>Professional Details : </div>
-                <div className='cradElemet'>
-                    <div className='cardDetails'><div className='cardQ'>Joining Date</div> <div className='cardA'>: {data && data.joiningDate}</div></div>
-                    <div className='cardDetails'><div className='cardQ'>Bond Duration</div> <div className='cardA'>: {data && data.bond}</div></div>
-                    <div className='cardDetails'><div className='cardQ'>Registration Number</div> <div className='cardA'>: {data && data.registrationNo}</div></div>
-                    <div className='cardDetails'><div className='cardQ'>Employee ID</div> <div className='cardA'>: {data && data.empId}</div></div>
-                    <div className='cardDetails'><div className='cardQ'>Office Email iD</div> <div className='cardA'>: {data && data.oEmail}</div></div>
-
+                <div className='cardBg'>
+                    <div className='cradElemet'>
+                        <div className='cardDetails'><div className='cardQ'>Joining Date</div> <div className='cardA'>: {data && data.joiningDate}</div></div>
+                        <div className='cardDetails'><div className='cardQ'>Bond Duration</div> <div className='cardA'>: {data && data.bond}</div></div>
+                        <div className='cardDetails'><div className='cardQ'>Registration Number</div> <div className='cardA'>: {data && data.registrationNo}</div></div>
+                        <div className='cardDetails'><div className='cardQ'>Employee ID</div> <div className='cardA'>: {data && data.empId}</div></div>
+                        <div className='cardDetails'><div className='cardQ'>Office Email iD</div> <div className='cardA'>: {data && data.oEmail}</div></div>
+                    </div>
                 </div>
             </div>
             </div>
@@ -245,6 +251,7 @@ const Main = () => {
             </div>
 
         </div>
+    </div>
     </div>
     </>)
 }

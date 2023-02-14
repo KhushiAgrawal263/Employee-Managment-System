@@ -30,8 +30,14 @@ const AdminDoc = () => {
     <>
         <Sidebar />
         <NavBar />
+<<<<<<< HEAD
         <div className='adminDoc'>
         <table className="table table-striped levaeTable">
+=======
+        <div  className='adminDoc'>
+        <div className='adminDocBg'>
+        <table class="table table-striped levaeTable">
+>>>>>>> f051f76c866ada332e3adb70fa05569ee2db69cf
                 <thead>
                     <tr>
                     {/* <th scope='col'>S.No.</th> */}
@@ -64,6 +70,7 @@ const AdminDoc = () => {
                     }
                 </tbody>
             </table>
+        </div>
         </div>
     </>
   )

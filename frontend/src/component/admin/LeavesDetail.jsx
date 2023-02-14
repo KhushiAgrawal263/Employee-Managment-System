@@ -175,6 +175,7 @@ const LeavesDetail = () => {
     <>
         <Navbar/>
         <Sidebar />
+        <div className='leaveDetailBg'>
         <div className='leaveDetails'>
             <h3>Leave details about <span>{user && user.name}</span> </h3>
             <h6>{user && user.empId}, {user && user.designation}</h6>
@@ -263,7 +264,7 @@ const LeavesDetail = () => {
                     </table>
                 </div>
             </div>
-            {/* </div> */}
+            </div>
         </div>
     </>
   )

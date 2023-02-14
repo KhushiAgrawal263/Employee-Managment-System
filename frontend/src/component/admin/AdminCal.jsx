@@ -111,7 +111,9 @@ const AdminCal = () => {
     <>
         <NavBar />
         <Sidebar />
-<div className='calOverallDiv'>
+        <div className='calBg'>
+
+    <div className='calOverallDiv'>
         <div className={notificationComp ? 'adminCal1' : 'adminCal'}>
             <div className='admin-cal-head'>
                 <h2>Employee's Overview!</h2>
@@ -185,6 +187,7 @@ const AdminCal = () => {
                         notificationComp ? <AddNotification/> : ''
                     }
                 </div>
+        </div>
         </div>
     </>
   )

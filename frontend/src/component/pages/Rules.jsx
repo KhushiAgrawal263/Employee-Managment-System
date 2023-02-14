@@ -20,6 +20,7 @@ const Rules = () => {
     <>
         <NavBar />
         <Sidebar />
+        <div className='rulesBg'>
         <div className='rules'>
             <h2>Rules & Regulations</h2>
             <div className='overallRuleCard'>
@@ -35,6 +36,7 @@ const Rules = () => {
                 }
                 
             </div>
+        </div>
         </div>
     </>
   )

@@ -74,6 +74,7 @@ const EmployeeDetail = () => {
     <>
         <NavBar/>
         <Sidebar />
+        <div className='EdetailsBg'>
         <div className='Edetails'>
           <div className='mainInfo'>
               <div className='photoDiv'> 
@@ -97,7 +98,7 @@ const EmployeeDetail = () => {
               updateButton === true ? 
               <div>
                   <div className='pDetails'>
-                <table className="table">
+                <table className="table pDetailsTable">
                   <th scope="col">Personal Details :</th>
 
                   <tbody>
@@ -127,7 +128,7 @@ const EmployeeDetail = () => {
 
 
               <div className='pDetails'>
-                <table className="table">
+                <table className="table pDetailsTable">
                   <th scope="col">Professional Details :</th>
 
                   <tbody>
@@ -160,7 +161,7 @@ const EmployeeDetail = () => {
               </div>
 
               <div className='pDetails'>
-                <table className="table">
+                <table className="table pDetailsTable">
                   <th scope="col">Bank Details :</th>
 
                   <tbody>
@@ -190,7 +191,7 @@ const EmployeeDetail = () => {
               :
             <div>
               <div className='pDetails'>
-                <table className="table">
+                <table className="table pDetailsTable">
                   <th scope="col">Personal Details :</th>
 
                   <tbody>
@@ -220,7 +221,7 @@ const EmployeeDetail = () => {
 
 
               <div className='pDetails'>
-                <table className="table">
+                <table className="table pDetailsTable">
                   <th scope="col">Professional Details :</th>
 
                   <tbody>
@@ -253,7 +254,7 @@ const EmployeeDetail = () => {
               </div>
 
               <div className='pDetails'>
-                <table className="table">
+                <table className="table pDetailsTable">
                   <th scope="col">Bank Details :</th>
 
                   <tbody>
@@ -286,6 +287,7 @@ const EmployeeDetail = () => {
 
           </div>
 
+        </div>
         </div>
     </>
   )

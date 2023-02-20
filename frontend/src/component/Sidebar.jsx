@@ -16,18 +16,17 @@ const Sidebar = () => {
 
   const [employee, setEmployee] = useState();
 
-  // console.log(display);
-  // useEffect(()=>{
-  //   console.log(display);
-  // },[display])
+  const selectedPage = window.location.pathname;
+  console.log(`jdnijndklo${selectedPage}`);
 
-  // const handleChange = (value) => {
-  //   handleChange = (value) => {
-  //     setDisplay(value)
-  //   }
-  // }
-
-  // console.log(display);
+  const navLinks = document.querySelectorAll('div div Link');
+  console.log(` jhclkh : ${navLinks}`)
+  navLinks.forEach(element => {
+    if(element.to.includes(`${selectedPage}`)){
+      console.log(`selected : ${selectedPage}`)
+      element.classList.add('sideItem1');
+    }
+  });
 
 
   return (
@@ -36,7 +35,7 @@ const Sidebar = () => {
         role == 'admin' && 
         <div>
           <Link to='/home' style={{'textDecoration' : 'none'}}>
-            <div className= {display == 'employee' ? 'sideItem1 sideItem' : 'sideItem'} onClick={() => setDisplay('employee') }>
+            <div className= {selectedPage == '/home' || selectedPage == '/EmployeeDetails'? 'sideItem1 sideItem' : 'sideItem'} >
               <div  className='sideLink'>
                 <FontAwesomeIcon icon={faUser} className='fAIcon' />
                 <div>Employee</div>
@@ -45,7 +44,7 @@ const Sidebar = () => {
           </Link>
 
           <Link to='/adminDoc' style={{'textDecoration' : 'none'}}>
-            <div className= {display == 'referals' ? 'sideItem1 sideItem' : 'sideItem'} onClick={() => setDisplay('referals') } >
+            <div className= {selectedPage == '/adminDoc' || selectedPage == '/documentDetails' ? 'sideItem1 sideItem' : 'sideItem'} >
               <div className='sideLink'>
                 <FontAwesomeIcon icon={faFile} className='fAIcon' />
                 <div>Referals</div>
@@ -54,7 +53,7 @@ const Sidebar = () => {
           </Link>
 
           <Link to='/addEmployee' style={{'textDecoration' : 'none'}}>
-            <div className= {display == 'add' ? 'sideItem1 sideItem' : 'sideItem'} onClick={() => setDisplay('add') }>
+            <div className= {selectedPage == '/addEmployee' ? 'sideItem1 sideItem' : 'sideItem'} >
               <div className='sideLink'>
                 <FontAwesomeIcon icon={faPlus} className='fAIcon' />
                 <div>Add</div>
@@ -63,7 +62,7 @@ const Sidebar = () => {
           </Link>
 
           <Link to='/reviewLeave' style={{'textDecoration' : 'none'}}>
-            <div className= {display == 'leave' ? 'sideItem1 sideItem' : 'sideItem'} onClick={() => setDisplay('leave') }>
+            <div className= {selectedPage == '/reviewLeave' || selectedPage == '/leaveDetails' ? 'sideItem1 sideItem' : 'sideItem'} >
               <div className='sideLink'>
                 <FontAwesomeIcon icon={faFilePen} className='fAIcon' />
                 <div>Leave</div>
@@ -72,7 +71,7 @@ const Sidebar = () => {
           </Link>
 
           <Link to='/reviewWfh' style={{'textDecoration' : 'none'}}>
-            <div className= {display == 'wfh' ? 'sideItem1 sideItem' : 'sideItem'} onClick={() => setDisplay('wfh') }>
+            <div className= {selectedPage == '/reviewWfh' || selectedPage == '/wfhDetails' ? 'sideItem1 sideItem' : 'sideItem'}>
               <div className='sideLink'>
                 <FontAwesomeIcon icon={faHouseLaptop} className='fAIcon' />
                 <div>WFH</div>
@@ -81,7 +80,7 @@ const Sidebar = () => {
           </Link>
 
           <Link to='/adminCal' style={{'textDecoration' : 'none'}}>
-            <div className= {display == 'calendar' ? 'sideItem1 sideItem' : 'sideItem'} onClick={() => setDisplay('calendar') }>
+            <div className= {selectedPage == '/adminCal' ? 'sideItem1 sideItem' : 'sideItem'} >
               <div className='sideLink'>
                 <FontAwesomeIcon icon={faCalendar} className='fAIcon' />
                 <div>Calendar</div>
@@ -90,7 +89,7 @@ const Sidebar = () => {
           </Link>
 
           <Link to='/prevNotification' style={{'textDecoration' : 'none'}}>
-            <div className= {display == 'pop' ? 'sideItem1 sideItem' : 'sideItem'} onClick={() => setDisplay('pop') }>
+            <div className= {selectedPage == '/prevNotification' ? 'sideItem1 sideItem' : 'sideItem'} >
               <div className='sideLink'>
                 <FontAwesomeIcon icon={faBell} className='fAIcon' />
                 <div>Pop-up</div>
@@ -103,7 +102,7 @@ const Sidebar = () => {
         role == 'user' && 
         <div>
           <Link to='/home' style={{'textDecoration' : 'none'}}>
-            <div className= {display == 'dash' ? 'sideItem1 sideItem' : 'sideItem'} onClick={() => setDisplay('dash') }>
+            <div className= {selectedPage == '/home' ? 'sideItem1 sideItem' : 'sideItem'} >
               <div className='sideLink'>
                 <FontAwesomeIcon icon={faUser} className='fAIcon' />
                 <div>Dashboard</div>
@@ -113,7 +112,7 @@ const Sidebar = () => {
 
 
           <Link to='/document' style={{'textDecoration' : 'none'}}>
-            <div className= {display == 'doc' ? 'sideItem1 sideItem' : 'sideItem'} onClick={() => setDisplay('doc') }>
+            <div className= {selectedPage == '/document' ? 'sideItem1 sideItem' : 'sideItem'} >
               <div className='sideLink'>
                 <FontAwesomeIcon icon={faFile} className='fAIcon' />
                 <div>Documents</div>
@@ -122,7 +121,7 @@ const Sidebar = () => {
           </Link>
 
           <Link to='/calendar' style={{'textDecoration' : 'none'}}>
-            <div className= {display == 'employeCal' ? 'sideItem1 sideItem' : 'sideItem'} onClick={() => setDisplay('employeCal') }>
+            <div className= {selectedPage == '/calendar' ? 'sideItem1 sideItem' : 'sideItem'} >
               <div className='sideLink'>
                 <FontAwesomeIcon icon={faCalendarDay} className='fAIcon' />
                 <div>Calendar</div>
@@ -131,7 +130,7 @@ const Sidebar = () => {
           </Link>
 
           <Link to='/applyLeaves' style={{'textDecoration' : 'none'}}>
-            <div className= {display == 'employeeLeave' ? 'sideItem1 sideItem' : 'sideItem'} onClick={() => setDisplay('employeeLeave') }>
+            <div className= {selectedPage == '/applyLeaves' ? 'sideItem1 sideItem' : 'sideItem'} >
               <div className='sideLink'>
                 <FontAwesomeIcon icon={faUser} className='fAIcon' />
                 <div>Leaves</div>
@@ -140,7 +139,7 @@ const Sidebar = () => {
           </Link>
 
           <Link to='/workFromHome' style={{'textDecoration' : 'none'}}>
-            <div className= {display == 'employeeWFH' ? 'sideItem1 sideItem' : 'sideItem'} onClick={() => setDisplay('employeeWFH') }>
+            <div className= {selectedPage == '/workFromHome' ? 'sideItem1 sideItem' : 'sideItem'}>
               <div to='/workFromHome' className='sideLink'>
                 <FontAwesomeIcon icon={faLaptop} className='fAIcon' />
                 <div>WFH</div>
@@ -149,7 +148,7 @@ const Sidebar = () => {
           </Link>
 
           <Link to='/rules' style={{'textDecoration' : 'none'}}>
-            <div className= {display == 'rr' ? 'sideItem1 sideItem' : 'sideItem'} onClick={() => setDisplay('rr') }>
+            <div className= {selectedPage == '/rules' ? 'sideItem1 sideItem' : 'sideItem'} >
               <div className='sideLink'>
                 <FontAwesomeIcon icon={faListCheck} className='fAIcon' />
                 <div>R&R</div>
@@ -158,7 +157,7 @@ const Sidebar = () => {
           </Link>
 
           <Link to='/prevNotification' style={{'textDecoration' : 'none'}}>
-            <div className= {display == 'employeePop' ? 'sideItem1 sideItem' : 'sideItem'} onClick={() => setDisplay('employeePop') }>
+            <div className= {selectedPage == '/prevNotification' ? 'sideItem1 sideItem' : 'sideItem'} >
               <div className='sideLink'>
                 <FontAwesomeIcon icon={faBell} className='fAIcon' />
                 <div>Pop-ups</div>

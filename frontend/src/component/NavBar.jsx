@@ -33,11 +33,11 @@ function NavBar() {
     });
     const channel = pusher.subscribe('users');
       
-    channel.bind('inserted', function(data) {
-      // alert(JSON.stringify(data));
-      console.log("event trioggered");
-      setEvent(true);
-    });
+    // channel.bind('inserted', function(data) {
+    //   // alert(JSON.stringify(data));
+    //   console.log("event trioggered");
+    //   setEvent(true);
+    // });
 
  // fetch unseen notifications of employee
  const fetchunseennotifications =async ()=>{

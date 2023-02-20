@@ -5,7 +5,7 @@ import moment from 'moment';
 import Sidebar from '../Sidebar';
 import NavBar from '../NavBar';
 import axios from 'axios';
-import emailjs from 'emailjs-com'
+// import emailjs from 'emailjs-com'
 
 const Apply = () => {
     const [date, setDate] = useState(new Date())

@@ -42,21 +42,21 @@ db.once('open', () => {
         console.log(`Server is listening at ${port}`);
     })
 
-    const userCollection = db.collection('users');
-      const changeStream = userCollection.watch();
+    // const userCollection = db.collection('users');
+    //   const changeStream = userCollection.watch();
         
-      changeStream.on('change', (change) => {
-        if(change.operationType === 'update') {
-            const task = change.fullDocument;
-            pusher.trigger(
-              channel,
-              'inserted', 
-              {
-                task: task,
-              }
-            ); 
-          }
-      });
+    //   changeStream.on('change', (change) => {
+    //     if(change.operationType === 'update') {
+    //         const task = change.fullDocument;
+    //         pusher.trigger(
+    //           channel,
+    //           'inserted', 
+    //           {
+    //             task: task,
+    //           }
+    //         ); 
+    //       }
+    //   });
 });
 
 app.use('/',userRouter);

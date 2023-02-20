@@ -1,9 +1,12 @@
 import React from 'react'
 import { useState } from 'react'
 import '../PrevNotifications.css'
+import Loading from  '../Loading.jsx'
 
 const AdminAllNotification = ({props}) => {
     const[not, setNot] = useState('All')
+    const[loading, setLoading] = useState('false');
+    
     const count = props.count;
     const seenNotifi = props.notifi;
     let uniqueAll=[];

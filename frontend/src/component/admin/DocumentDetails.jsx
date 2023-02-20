@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import NavBar from '../NavBar'
 import Sidebar from '../Sidebar'
-import { Buffer } from 'buffer';
-import PSPDFKit from "pspdfkit";
-import { SpecialZoomLevel, Viewer } from '@react-pdf-viewer/core';
-import '@react-pdf-viewer/core/lib/styles/index.css';
+// import { Buffer } from 'buffer';
+// import PSPDFKit from "pspdfkit";
+// import { SpecialZoomLevel, Viewer } from '@react-pdf-viewer/core';
+// import '@react-pdf-viewer/core/lib/styles/index.css';
 import './AdminDoc.css'
 
 const DocumentDetails = () => {

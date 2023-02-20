@@ -4,9 +4,12 @@ import NavBar from '../NavBar'
 import Sidebar from '../Sidebar'
 import axios from 'axios'
 import './AdminDoc.css'
+import Loading from '../Loading';
+
 
 const AdminDoc = () => {
     const [user,setUser] = useState();
+    const [loading, setLoading] = useState(false);
 
     const userURL = 'http://localhost:8000'
     useEffect(() => {
@@ -21,6 +24,7 @@ const AdminDoc = () => {
             const data = await res.json();
             console.log(data);
             setUser(data)
+            setLoading(false);
         }
         fetchurl();
       },[]);
@@ -30,6 +34,9 @@ const AdminDoc = () => {
     <>
         <Sidebar />
         <NavBar />
+        {
+            !loading ?
+        
         <div className='adminDoc'>
         <div className='adminDocBg'>
         <table class="table table-striped levaeTable">
@@ -66,7 +73,7 @@ const AdminDoc = () => {
                 </tbody>
             </table>
         </div>
-        </div>
+        </div>: ''}
     </>
   )
 }

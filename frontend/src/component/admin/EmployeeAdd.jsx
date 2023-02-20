@@ -4,7 +4,7 @@ import Sidebar from '../Sidebar';
 import NavBar from '../NavBar';
 import { useState } from 'react';
 import axios from 'axios';
-import emailjs from 'emailjs-com'
+// import emailjs from 'emailjs-com'
 //validation
 
 
@@ -250,7 +250,7 @@ const EmployeeAdd = () => {
         .then((res) => {
         alert("File Upload success");
         setBtnState(false);
-        // window.location.href='/home'
+        window.location.href='/home'
         })
         .catch((err) => console.log(err));
 

@@ -149,7 +149,7 @@ router.get('/get/birthdaydates/users',async(req,res)=>{
     }
 })
 
-///////////////// Notifications /////////////////////////////
+///////////////// Notifications will be done from here /////////////////////////////
 
 // Add notification to a specific user
 router.post('/user/user/addnotifi/:id',async (req,res)=>{

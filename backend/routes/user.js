@@ -17,146 +17,10 @@ router.post('/upload/:id',upload.single('image'), async(req,res)=>{
     res.status(200).json(user);
  })
 
-// upload file
-router.post('/uploadFile/:id/:name/:date',uploadFile.single('file'), async(req,res)=>{
-    const objectId = mongoose.Types.ObjectId(req.params.id)
-    const image = {
-        data: fs.readFileSync("uploadFile/" + req.file.filename),
-        contentType: req.file.mimetype,
-        status:'uploaded',
-        lastModified:req.params.date,
-        fileName:req.file.originalname.split(".")[0]
-    }
-    // console.log(image);
-    if(req.params.name=='relievingLetter'){
-        const user = await User.findByIdAndUpdate(objectId,{$set: {'documents.relievingLetter': image},docStatus:'pending'})
-        res.status(200).json(user);
-    }else if(req.params.name=='aadharCard'){
-        const user = await User.findByIdAndUpdate(objectId,{$set: {'documents.aadharCard': image},docStatus:'pending'})
-        res.status(200).json(user);
-    }else if(req.params.name=='panCard'){
-        const user = await User.findByIdAndUpdate(objectId,{$set: {'documents.panCard': image},docStatus:'pending'})
-        res.status(200).json(user);
-    }else if(req.params.name=='graduate'){
-        const user = await User.findByIdAndUpdate(objectId,{$set: {'documents.graduate': image},docStatus:'pending'})
-        res.status(200).json(user);
-    }else if(req.params.name=='tenth'){
-        const user = await User.findByIdAndUpdate(objectId,{$set: {'documents.tenth': image},docStatus:'pending'})
-        res.status(200).json(user);
-    }else if(req.params.name=='twelth'){
-        const user = await User.findByIdAndUpdate(objectId,{$set: {'documents.twelth': image},docStatus:'pending'})
-        res.status(200).json(user);
-    }else if(req.params.name=='resume'){
-        const user = await User.findByIdAndUpdate(objectId,{$set: {'documents.resume': image},docStatus:'pending'})
-        res.status(200).json(user);
-    }
- })
-
-
-// find users with documents
-router.get('/get/document/users',async(req,res)=>{
-    try {
-        const data = await User.aggregate([{$match:{$or: [{ docStatus: "pending" }, { docStatus: "approved" }]}},{$project:{documents:0,image:0,notifications:0}}]);
-        res.status(200).json(data);
-    } catch (error) {
-        res.status(500).json(error);
-    }
-})
-
- // update approved status of documents
- router.put('/approveorreject/document/:id/:name/:type',async(req,res)=>{
-    const field = `documents.${req.params.name}.status`;
-    console.log(req.params.name,req.params.id,req.params.type);
-    try {
-        if(req.params.name=='relievingLetter'){
-            const user = await User.updateMany({_id:req.params.id},{ "$set": { "documents.relievingLetter.status": req.params.type }} )
-            res.status(200).json(user);
-        }else if(req.params.name=='aadharCard'){
-            const user = await User.findByIdAndUpdate({_id:req.params.id},{$set: {'documents.aadharCard.status': req.params.type}})
-            res.status(200).json(user);
-        }else if(req.params.name=='panCard'){
-            const user = await User.findByIdAndUpdate({_id:req.params.id},{$set: {'documents.panCard.status': req.params.type}})
-            res.status(200).json(user);
-        }else if(req.params.name=='graduate'){
-            const user = await User.findByIdAndUpdate({_id:req.params.id},{$set: {'documents.graduate.status': req.params.type}})
-            res.status(200).json(user);
-        }else if(req.params.name=='tenth'){
-            const user = await User.findByIdAndUpdate({_id:req.params.id},{$set: {'documents.tenth.status': req.params.type}})
-            res.status(200).json(user);
-        }else if(req.params.name=='twelth'){
-            const user = await User.findByIdAndUpdate({_id:req.params.id},{$set: {'documents.twelth.status': req.params.type}})
-            res.status(200).json(user);
-        }else if(req.params.name=='resume'){
-            const user = await User.findByIdAndUpdate({_id:req.params.id},{$set: {'documents.resume.status': req.params.type}})
-            res.status(200).json(user);
-        }
-    } catch (error) {
-        res.status(401).json(error);
-    }
-})
-
-// get a particular document of a user
-router.get('/documents/:id/:name',async(req,res)=>{
-    const user = await User.aggregate([{$match:{ _id: mongoose.Types.ObjectId(req.params.id)}},{$project:{documents:`$documents.${req.params.name}`}}]);
-    res.status(200).json(user);
-})
-
-
-
-// get status and lastModified of documents of a user
-router.get('/documents/:id',async(req,res)=>{
-    const user = await User.aggregate([{$match:{ _id: mongoose.Types.ObjectId(req.params.id)}},{$project:{documents:{
-        relievingLetter:"$documents.relievingLetter.status",
-        aadharCard:"$documents.aadharCard.status",
-        panCard:"$documents.panCard.status",
-        graduate:"$documents.graduate.status",
-        twelth:"$documents.twelth.status",
-        tenth:"$documents.tenth.status",
-        resume:"$documents.resume.status"
-    },lastModified:{
-        relievingLetter:"$documents.relievingLetter.lastModified",
-        aadharCard:"$documents.aadharCard.lastModified",
-        panCard:"$documents.panCard.lastModified",
-        graduate:"$documents.graduate.lastModified",
-        twelth:"$documents.twelth.lastModified",
-        tenth:"$documents.tenth.lastModified",
-        resume:"$documents.resume.lastModified"
-    },experience:1,docStatus:1}}]);
-    res.status(200).json(user);
-})
-
-// get the status of a particular document of a user
-router.get('/documents/:id/:name',async(req,res)=>{
-    const user = await User.aggregate([{$match:{ _id: mongoose.Types.ObjectId(req.params.id)}},{$project:{documents:{
-        relievingLetter:"$documents.relievingLetter.status",
-        aadharCard:"$documents.aadharCard.status",
-        panCard:"$documents.panCard.status",
-        graduate:"$documents.graduate.status",
-        twelth:"$documents.twelth.status",
-        tenth:"$documents.tenth.status",
-        resume:"$documents.resume.status"
-    }}}]);
-    res.status(200).json(user);
-})
-
-
-
-// delete document of a user
-router.put('/delete/document/:id',async(req,res)=>{
-    try {
-        const result = await User.updateMany({_id:req.params.id},{ "$unset": { "documents.relievingLetter": "" }} )
-        res.status(200).json(result)
-    } catch (error) {
-        res.status(401).json(error);
-    }
-})
-
  // get all users
 router.get('/',async(req,res)=>{
     const user = await User.aggregate([{ $match : { role : "user" } },{$project : {documents:0}}]);
-    console.log(user[0].name);
     const count = await User.count({"role":"user"});
-    console.log("jhghgfhg");
     res.status(200).json( {count,user});
 })
 
@@ -169,8 +33,6 @@ router.get('/:id',async(req,res)=>{
 
 // update user
 router.put('/:id',async (req,res)=>{
-    console.log(req.body);
-    console.log(req.params.id);
     try {
         const user = await User.findOneAndUpdate({_id : req.params.id},req.body,{
             new:true
@@ -228,7 +90,6 @@ router.put('/updatetask/:id',async (req,res)=>{
 
 // register user
 router.post('/register',async(req,res)=>{
-    console.log(req.body);
     try {
         const user = await User.create(req.body);
         res.status(200).json(user)
@@ -270,13 +131,13 @@ router.post('/login',async(req,res)=>{
 // find users with pending or approved leaves
 router.get('/get/user',async(req,res)=>{
     try {
-        const result = await User.aggregate([{$match:{$or: [{ pendingLeaves: {$gte:1} }, { approvedLeaves: {$gte:1} }]}},{$project:{documents:0,image:0,notifications:0}}]);
+        const result = await User.aggregate([{$match:{$or: [{ pendingLeaves: {$gte:1} }, { approvedLeaves: {$gte:1} }]}},{$project:{documents:0,image:0,notifications:0}}, {$sort: { leaveLastModified: -1 }}]);
+        console.log(result);
         res.status(200).json(result)
     } catch (error) {
         res.status(401).json(error);
     }
 })
-
 
 // find birtday dates of all users
 router.get('/get/birthdaydates/users',async(req,res)=>{
@@ -288,6 +149,7 @@ router.get('/get/birthdaydates/users',async(req,res)=>{
     }
 })
 
+///////////////// Notifications /////////////////////////////
 
 // Add notification to a specific user
 router.post('/user/user/addnotifi/:id',async (req,res)=>{
@@ -306,6 +168,17 @@ router.post('/user/user/addnotifi/:id',async (req,res)=>{
         // res.status(500).json(error);
     }
 })
+
+//Get all notifications of a user
+router.get('/user/get/user/all/notifi/:id',async(req,res)=>{
+    try {
+        const result = await User.aggregate([{ $match : { _id : mongoose.Types.ObjectId(req.params.id)} },{$project : { notifications:1 }}]);
+        res.status(200).json(result)
+    } catch (error) {
+        res.status(401).json(error);
+    }
+})
+
 
 // Get all unseen notifications of a user
 router.get('/user/get/user/notifi/:id',async(req,res)=>{
@@ -330,7 +203,6 @@ router.get('/user/get/user/seen/notifi/:id',async(req,res)=>{
     }
 })
 
-
 //Add notifications to all the users
 router.post('/user/user/addnotifi/',async (req,res)=>{
     try {
@@ -351,7 +223,7 @@ router.post('/user/user/addnotifi/',async (req,res)=>{
 // Add notifications to all the users expect one 
 router.post('/user/oneuser/addnotifi/:id',async (req,res)=>{
     try {
-        const user = await User.updateMany({_id:{$ne: req.params.id}},{$push:{notifications:req.body}},{new:true},
+        const user = await User.updateMany({_id:{$ne: req.params.id},role:{$ne: 'admin'}},{$push:{notifications:req.body}},{new:true},
             function (err, docs) {
                 if (err){
                     console.log(err)
@@ -364,7 +236,6 @@ router.post('/user/oneuser/addnotifi/:id',async (req,res)=>{
         // res.status(500).json(error);
     }
 })
-
 
 //Add notification to the admin
 router.post('/admin/user/addnotifi/',async (req,res)=>{
@@ -382,7 +253,6 @@ router.post('/admin/user/addnotifi/',async (req,res)=>{
         // res.status(500).json(error);
     }
 })
-
 
 // change the status of notification from unseen to seen 
 router.put('/user/user/updatestatus/:id/:notifiId',async (req,res)=>{
@@ -404,8 +274,6 @@ router.put('/user/user/updatestatus/:id/:notifiId',async (req,res)=>{
         // res.status(500).json(error);
     }
 })
-
-
 
 // check if birthday notification exists
 router.get('/birthday/notification/:id',async(req,res)=>{
@@ -462,6 +330,146 @@ router.post('/admin/user/addnotifi/:id',async (req,res)=>{
         }
     } catch (error) {
         // res.status(500).json(error);
+    }
+})
+
+// Get notification of a user of a particular date
+router.get('/get/all/notifi/',async(req,res)=>{
+    
+})
+
+
+/////////////// documents ///////////////////////////
+
+// upload file
+router.post('/uploadFile/:id/:name/:date',uploadFile.single('file'), async(req,res)=>{
+    const objectId = mongoose.Types.ObjectId(req.params.id)
+    const image = {
+        data: fs.readFileSync("uploadFile/" + req.file.filename),
+        contentType: req.file.mimetype,
+        status:'uploaded',
+        lastModified:req.params.date,
+        fileName:req.file.originalname.split(".")[0]
+    }
+    // console.log(image);
+    if(req.params.name=='relievingLetter'){
+        const user = await User.findByIdAndUpdate(objectId,{$set: {'documents.relievingLetter': image},docStatus:'pending',docLastModified:Date.now()})
+        res.status(200).json(user);
+    }else if(req.params.name=='aadharCard'){
+        const user = await User.findByIdAndUpdate(objectId,{$set: {'documents.aadharCard': image},docStatus:'pending',docLastModified:Date.now()})
+        res.status(200).json(user);
+    }else if(req.params.name=='panCard'){
+        const user = await User.findByIdAndUpdate(objectId,{$set: {'documents.panCard': image},docStatus:'pending',docLastModified:Date.now()})
+        res.status(200).json(user);
+    }else if(req.params.name=='graduate'){
+        const user = await User.findByIdAndUpdate(objectId,{$set: {'documents.graduate': image},docStatus:'pending',docLastModified:Date.now()})
+        res.status(200).json(user);
+    }else if(req.params.name=='tenth'){
+        const user = await User.findByIdAndUpdate(objectId,{$set: {'documents.tenth': image},docStatus:'pending',docLastModified:Date.now()})
+        res.status(200).json(user);
+    }else if(req.params.name=='twelth'){
+        const user = await User.findByIdAndUpdate(objectId,{$set: {'documents.twelth': image},docStatus:'pending',docLastModified:Date.now()})
+        res.status(200).json(user);
+    }else if(req.params.name=='resume'){
+        const user = await User.findByIdAndUpdate(objectId,{$set: {'documents.resume': image},docStatus:'pending',docLastModified:Date.now()})
+        res.status(200).json(user);
+    }
+ })
+
+// find users with documents
+router.get('/get/document/users',async(req,res)=>{
+    try {
+        const data = await User.aggregate([{$match:{$or: [{ docStatus: "pending" }, { docStatus: "approved" }]}},{$project:{documents:0,image:0,notifications:0}},{
+            $sort: { docLastModified: -1 }
+         }]);
+        console.log(data);
+        res.status(200).json(data);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+})
+
+ // update approved status of documents
+ router.put('/approveorreject/document/:id/:name/:type',async(req,res)=>{
+    const field = `documents.${req.params.name}.status`;
+    console.log(req.params.name,req.params.id,req.params.type);
+    try {
+        if(req.params.name=='relievingLetter'){
+            const user = await User.updateMany({_id:req.params.id},{ "$set": { "documents.relievingLetter.status": req.params.type }} )
+            res.status(200).json(user);
+        }else if(req.params.name=='aadharCard'){
+            const user = await User.findByIdAndUpdate({_id:req.params.id},{$set: {'documents.aadharCard.status': req.params.type}})
+            res.status(200).json(user);
+        }else if(req.params.name=='panCard'){
+            const user = await User.findByIdAndUpdate({_id:req.params.id},{$set: {'documents.panCard.status': req.params.type}})
+            res.status(200).json(user);
+        }else if(req.params.name=='graduate'){
+            const user = await User.findByIdAndUpdate({_id:req.params.id},{$set: {'documents.graduate.status': req.params.type}})
+            res.status(200).json(user);
+        }else if(req.params.name=='tenth'){
+            const user = await User.findByIdAndUpdate({_id:req.params.id},{$set: {'documents.tenth.status': req.params.type}})
+            res.status(200).json(user);
+        }else if(req.params.name=='twelth'){
+            const user = await User.findByIdAndUpdate({_id:req.params.id},{$set: {'documents.twelth.status': req.params.type}})
+            res.status(200).json(user);
+        }else if(req.params.name=='resume'){
+            const user = await User.findByIdAndUpdate({_id:req.params.id},{$set: {'documents.resume.status': req.params.type}})
+            res.status(200).json(user);
+        }
+    } catch (error) {
+        res.status(401).json(error);
+    }
+})
+
+// get a particular document of a user
+router.get('/documents/:id/:name',async(req,res)=>{
+    const user = await User.aggregate([{$match:{ _id: mongoose.Types.ObjectId(req.params.id)}},{$project:{documents:`$documents.${req.params.name}`}}]);
+    res.status(200).json(user);
+})
+
+// get status and lastModified of documents of a user
+router.get('/documents/:id',async(req,res)=>{
+    const user = await User.aggregate([{$match:{ _id: mongoose.Types.ObjectId(req.params.id)}},{$project:{documents:{
+        relievingLetter:"$documents.relievingLetter.status",
+        aadharCard:"$documents.aadharCard.status",
+        panCard:"$documents.panCard.status",
+        graduate:"$documents.graduate.status",
+        twelth:"$documents.twelth.status",
+        tenth:"$documents.tenth.status",
+        resume:"$documents.resume.status"
+    },lastModified:{
+        relievingLetter:"$documents.relievingLetter.lastModified",
+        aadharCard:"$documents.aadharCard.lastModified",
+        panCard:"$documents.panCard.lastModified",
+        graduate:"$documents.graduate.lastModified",
+        twelth:"$documents.twelth.lastModified",
+        tenth:"$documents.tenth.lastModified",
+        resume:"$documents.resume.lastModified"
+    },experience:1,docStatus:1}}]);
+    res.status(200).json(user);
+})
+
+// get the status of a particular document of a user
+router.get('/documents/:id/:name',async(req,res)=>{
+    const user = await User.aggregate([{$match:{ _id: mongoose.Types.ObjectId(req.params.id)}},{$project:{documents:{
+        relievingLetter:"$documents.relievingLetter.status",
+        aadharCard:"$documents.aadharCard.status",
+        panCard:"$documents.panCard.status",
+        graduate:"$documents.graduate.status",
+        twelth:"$documents.twelth.status",
+        tenth:"$documents.tenth.status",
+        resume:"$documents.resume.status"
+    }}}]);
+    res.status(200).json(user);
+})
+
+// delete document of a user
+router.put('/delete/document/:id',async(req,res)=>{
+    try {
+        const result = await User.updateMany({_id:req.params.id},{ "$unset": { "documents.relievingLetter": "" }} )
+        res.status(200).json(result)
+    } catch (error) {
+        res.status(401).json(error);
     }
 })
 

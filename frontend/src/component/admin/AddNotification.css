@@ -13,6 +13,8 @@
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     left: 1170px;
     animation:  0.8s notificationAnimation;
+    display: flex;
+    
 }
 .add-notification input{
     margin: 10px 0px;

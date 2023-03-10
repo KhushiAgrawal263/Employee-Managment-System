@@ -2,6 +2,7 @@
     padding: 20px;
     border-radius: 15px;
     background-color: white;
+    min-height: 80vh;
     /* border: 2px solid black; */
 }
 .documentBg{

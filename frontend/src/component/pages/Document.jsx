@@ -110,7 +110,7 @@ const Document = () => {
                       <td> <button onClick={()=>{uploadFile('relievingLetter')}} >Upload</button> </td>
                       {status.relievingLetter ? '': <td> <div className='status' style={{'color' : '#084cdf'}}>Pending</div> </td>}
                       {
-                        (status.relievingLetter && status.relievingLetter=='pending' || status.relievingLetter && status.relievingLetter=='rejected') && 
+                        status.relievingLetter && status.relievingLetter=='pending' && 
                         <td> <div className='status' style={{'color' : '#084cdf'}}>Pending</div> </td>
                       }
                       {
@@ -120,6 +120,10 @@ const Document = () => {
                       {
                         status.relievingLetter && status.relievingLetter=='failed' &&
                         <td> <div className='status' style={{'color' : 'red'}}>Failed</div> </td>
+                      }
+                      {
+                        status.relievingLetter && status.relievingLetter=='rejected' &&
+                        <td> <div className='status' style={{'color' : 'red'}}>Rejected</div> </td>
                       }
                       {
                         status.relievingLetter && status.relievingLetter=='approved' &&
@@ -137,13 +141,17 @@ const Document = () => {
                     <td><input type="file" name={file} onChange={(e)=>setFile(e.target.files[0])} required /></td>
                     <td><button onClick={()=>{uploadFile('aadharCard')}}>Upload</button></td>
                     {status.aadharCard ? '': <td> <div className='status' style={{'color' : '#084cdf'}}>Pending</div> </td>}
-                    {
-                        (status.aadharCard && status.aadharCard=='pending' || status.aadharCard && status.aadharCard=='rejected') && 
+                      {
+                        status.aadharCard && status.aadharCard=='pending' && 
                         <td> <div className='status' style={{'color' : '#084cdf'}}>Pending</div> </td>
                       }
                       {
                         status.aadharCard && status.aadharCard=='uploaded' &&
                         <td> <div className='status' style={{'color' : 'green'}}>Uploaded</div> </td>
+                      }
+                      {
+                        status.aadharCard && status.aadharCard=='rejected' &&
+                        <td> <div className='status' style={{'color' : 'red'}}>Rejected</div> </td>
                       }
                       {
                         status.aadharCard && status.aadharCard=='failed' &&
@@ -165,7 +173,7 @@ const Document = () => {
                     <td><button onClick={()=>{uploadFile('panCard')}}>Upload</button></td>
                     {status.panCard ? '': <td> <div className='status' style={{'color' : '#084cdf'}}>Pending</div> </td>}
                     {
-                        (status.panCard && status.panCard=='pending' || status.panCard && status.panCard=='rejected') && 
+                        status.panCard && status.panCard=='pending' && 
                         <td> <div className='status' style={{'color' : '#084cdf'}}>Pending</div> </td>
                       }
                       {
@@ -175,6 +183,10 @@ const Document = () => {
                       {
                         status.panCard && status.panCard=='failed' &&
                         <td> <div className='status' style={{'color' : 'red'}}>Failed</div> </td>
+                      }
+                      {
+                        status.panCard && status.panCard=='rejected' &&
+                        <td> <div className='status' style={{'color' : 'red'}}>Rejected</div> </td>
                       }
                       {
                         status.panCard && status.panCard=='approved' &&
@@ -193,12 +205,16 @@ const Document = () => {
                     <td><button onClick={()=>{uploadFile('graduate')}}>Upload</button></td>
                     {status.graduate ? '': <td> <div className='status' style={{'color' : '#084cdf'}}>Pending</div> </td>}
                     {
-                        (status.graduate && status.graduate=='pending' || status.graduate && status.graduate=='rejected') && 
+                        status.graduate && status.graduate=='pending' && 
                         <td> <div className='status' style={{'color' : '#084cdf'}}>Pending</div> </td>
                       }
                       {
                         status.graduate && status.graduate=='uploaded' &&
                         <td> <div className='status' style={{'color' : 'green'}}>Uploaded</div> </td>
+                      }
+                      {
+                        status.graduate && status.graduate=='rejected' &&
+                        <td> <div className='status' style={{'color' : 'red'}}>Rejected</div> </td>
                       }
                       {
                         status.graduate && status.graduate=='failed' &&
@@ -221,7 +237,7 @@ const Document = () => {
                     <td><button onClick={()=>{uploadFile('twelth')}}>Upload</button></td>
                     {status.twelth ? '': <td> <div className='status' style={{'color' : '#084cdf'}}>Pending</div> </td>}
                     {
-                        (status.twelth && status.twelth=='pending' || status.twelth && status.twelth=='rejected') && 
+                        status.twelth && status.twelth=='pending' && 
                         <td> <div className='status' style={{'color' : '#084cdf'}}>Pending</div> </td>
                       }
                       {
@@ -231,6 +247,10 @@ const Document = () => {
                       {
                         status.twelth && status.twelth=='failed' &&
                         <td> <div className='status' style={{'color' : 'red'}}>Failed</div> </td>
+                      }
+                      {
+                        status.twelth && status.twelth=='rejected' &&
+                        <td> <div className='status' style={{'color' : 'red'}}>Rejected</div> </td>
                       }
                       {
                         status.twelth && status.twelth=='approved' &&
@@ -249,7 +269,7 @@ const Document = () => {
                     <td><button onClick={()=>{uploadFile('tenth')}}>Upload</button></td>
                     {status.tenth ? '': <td> <div className='status' style={{'color' : '#084cdf'}}>Pending</div> </td>}
                     {
-                        (status.tenth && status.tenth=='pending' || status.tenth && status.tenth=='rejected') && 
+                        status.tenth && status.tenth=='pending' && 
                         <td> <div className='status' style={{'color' : '#084cdf'}}>Pending</div> </td>
                       }
                       {
@@ -259,6 +279,10 @@ const Document = () => {
                       {
                         status.tenth && status.tenth=='failed' &&
                         <td> <div className='status' style={{'color' : 'red'}}>Failed</div> </td>
+                      }
+                      {
+                        status.tenth && status.tenth=='rejected' &&
+                        <td> <div className='status' style={{'color' : 'red'}}>Rejected</div> </td>
                       }
                       {
                         status.tenth && status.tenth=='approved' &&
@@ -277,7 +301,7 @@ const Document = () => {
                     <td><button onClick={()=>{uploadFile('resume')}}>Upload</button></td>
                       {status.resume ? '': <td> <div className='status' style={{'color' : '#084cdf'}}>Pending</div> </td>}
                       {
-                        (status.resume && (status.resume=='pending' || status.resume=='rejected')) && 
+                        status.resume && status.resume=='pending'  && 
                         <td> <div className='status' style={{'color' : '#084cdf'}}>Pending</div> </td> 
                       }
                       {
@@ -287,6 +311,10 @@ const Document = () => {
                       {
                         status.resume && status.resume=='failed' &&
                         <td> <div className='status' style={{'color' : 'red'}}>Failed</div> </td>
+                      }
+                      {
+                        status.resume && status.resume=='rejected' &&
+                        <td> <div className='status' style={{'color' : 'red'}}>Rejected</div> </td>
                       }
                       {
                         status.resume && status.resume=='approved' &&

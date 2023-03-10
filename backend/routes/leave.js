@@ -7,10 +7,10 @@ router.post('/apply/:id',async (req,res)=>{
     try {
         const result = await Leave.exists({id: req.params.id});
         if(result==null){
-            const user = await Leave.create(req.body);
+            const user = await Leave.create({...req.body,leaveLastModified:Date.now()});
                 res.status(200).json("Leave Applied at first successsfully !!!");
         }else{
-            const updatedUser=await Leave.findOneAndUpdate({id:req.params.id},{ $push:{ pending:req.body.pending} },{new:true},
+            const updatedUser=await Leave.findOneAndUpdate({id:req.params.id},{ $push:{ pending:req.body.pending},leaveLastModified:Date.now()},{new:true},
                 function (err, docs) {
                     if (err){
                         console.log(err)
@@ -46,7 +46,6 @@ router.get('/leaves/getallLeaves',async(req,res)=>{
     }
 })
 
-
 // Get users by date
 router.get('/usersbydate/:date',async(req,res)=>{
     try {
@@ -61,17 +60,7 @@ router.get('/usersbydate/:date',async(req,res)=>{
 // Get approved leaves users by date
 router.get('/approved/usersbydate/:date',async(req,res)=>{
     try {
-        // ,{$project : { id:1, array: ["$approved.date" ] }}
         const result = await Leave.find({'approved':{"$elemMatch":{'date':req.params.date}}});
-        // const result = await Leave.aggregate([{$project : { id:1, array: [ {id:"$id"},"$approved." ] }}]);
-        // const result = await Leave.aggregate([{$match:{
-        //     "approved.date":req.params.date
-        // }},{
-        //     "$group":{
-        //         _id:"$approved.date",
-        //         reason:"$approved.reason"
-        //     }
-        // }]);
         res.status(200).json(result)
     } catch (error) {s
         res.status(401).json(error);

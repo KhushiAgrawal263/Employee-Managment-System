@@ -20,6 +20,7 @@ const EmployeeDetail = () => {
   const [bond, setBond] = useState();
   const [ctc, SetCtc] = useState();
   const [oEmail, setOEmail] = useState();
+  const [marital, setMarital] = useState();
 
   // get user
   useEffect(() => {
@@ -49,7 +50,8 @@ const EmployeeDetail = () => {
       contactNo:contact,
       ctc:ctc,
       bond:bond,
-      oEmail:oEmail
+      oEmail:oEmail,
+      maritalStatus:marital
     }
     console.log(val);
     const res = await fetch(userURL,{
@@ -99,7 +101,7 @@ const EmployeeDetail = () => {
                   <tbody>
                     <tr>
                       <th scope="row">Email id : </th>
-                      <td> <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}/> </td>
+                      <td> <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder={user.email}/> </td>
                     </tr>
                     <tr>
                       <th scope="row">Date of birth : </th>
@@ -107,11 +109,23 @@ const EmployeeDetail = () => {
                     </tr>
                     <tr>
                       <th scope="row">Address : </th>
-                      <td> <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} /> </td>
+                      <td> <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder={user.address} /> </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Gender : </th>
+                      <td> {user && user.gender ? user.gender : '---'} </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Marital Status : </th>
+                      <td> <input type="text" value={marital} onChange={(e) => setMarital(e.target.value)} placeholder={user.maritalStatus} /> </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Blood Group : </th>
+                      <td> {user && user.bloodGroup ? user.bloodGroup : '---'} </td>
                     </tr>
                     <tr>
                       <th scope="row">Contact Number : </th>
-                      <td> <input type="number" value={contact} onChange={(e) => setContact(e.target.value)} /> </td>
+                      <td> <input type="number" value={contact} onChange={(e) => setContact(e.target.value)} placeholder={user.contactNo} /> </td>
                     </tr>
                     <tr>
                       <th scope="row">Aadhar Number : </th>
@@ -133,23 +147,23 @@ const EmployeeDetail = () => {
                     </tr>
                     <tr>
                       <th scope="row">CTC : </th>
-                      <td> <input type="text" value={ctc} onChange={(e) => SetCtc(e.target.value)} /></td>
+                      <td> <input type="text" value={ctc} onChange={(e) => SetCtc(e.target.value)} placeholder={user.salary.ctc} /></td>
                     </tr>
                     <tr>
                       <th scope="row">Bond Duration : </th>
-                      <td> <input type="text" value={bond} onChange={(e) => setBond(e.target.value)} /></td>
+                      <td> <input type="text" value={bond} onChange={(e) => setBond(e.target.value)} placeholder={user.bond} /></td>
                     </tr>
-                    <tr>
+                    {/* <tr>
                       <th scope="row">Registration  : </th>
                       <td>53365</td>
-                    </tr>
+                    </tr> */}
                     <tr>
                       <th scope="row">Employee ID : </th>
                       <td>2023FB256</td>
                     </tr>
                     <tr>
                       <th scope="row">Office Email-id : </th>
-                      <td> <input type="email" value={oEmail} onChange={(e) => setOEmail(e.target.value)} /> </td>
+                      <td> <input type="email" value={oEmail} onChange={(e) => setOEmail(e.target.value)} placeholder={user.oEmail} /> </td>
                     </tr>
                   </tbody>
                 </table>
@@ -203,6 +217,16 @@ const EmployeeDetail = () => {
                       <td> {user && user.address} </td>
                     </tr>
                     <tr>
+                      <th scope="row">Gender : </th>
+                      <td> {user && user.gender ? user.gender : '---'} </td>
+                    </tr><tr>
+                      <th scope="row">Marital Status : </th>
+                      <td> {user && user.maritalStatus ? user.maritalStatus : '---'} </td>
+                    </tr><tr>
+                      <th scope="row">Blood Group : </th>
+                      <td> {user && user.bloodGroup ? user.bloodGroup : '---'} </td>
+                    </tr>
+                    <tr>
                       <th scope="row">Contact Number : </th>
                       <td> {user && user.contactNo} </td>
                     </tr>
@@ -232,10 +256,10 @@ const EmployeeDetail = () => {
                       <th scope="row">Bond Duration : </th>
                       <td> {user && user.bond} </td>
                     </tr>
-                    <tr>
+                    {/* <tr>
                       <th scope="row">Registration  : </th>
                       <td>{user && user.registrationNo}</td>
-                    </tr>
+                    </tr> */}
                     <tr>
                       <th scope="row">Employee ID : </th>
                       <td>{user && user.empId}</td>
@@ -277,13 +301,10 @@ const EmployeeDetail = () => {
               {user ? <AddTask props={ {task:user.taskCompleted,id:user._id}} /> : <p>Loading...</p>}
               </div>
             </div>
-
           }
-
           </div>
-
         </div>
-        </div>
+      </div>
     </>
   )
 }

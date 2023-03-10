@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const userSchema = mongoose.Schema(
     {
@@ -12,11 +13,15 @@ const userSchema = mongoose.Schema(
             contentType: String, 
         },
         dob:{type: String},
+        gender:{type:String},
+        maritalStatus:{type:String},
+        bloodGroup:{type:String},
         address: {type: String},
         contactNo : {type:String},
         aadharNo :{ type:String },
         joiningDate: { type:String },
         bond: { type:String },
+        unique:{type:Number},
         registrationNo :{ 
             type: String ,
             default: function() {
@@ -29,10 +34,12 @@ const userSchema = mongoose.Schema(
         empId: { 
             type:String ,
             default: function() {
-                const max=111;
-                const min=999;
-                const n = Math.floor(Math.random()*(max-min+1)+min);
-                return "2023"+"FB"+n;
+                if(this.unique<1)
+                {
+                    return "2023"+"FB0"+this.unique;
+                }else{
+                    return "2023"+"FB"+this.unique;
+                }
               }
         },
         email: { type:String},
@@ -69,6 +76,8 @@ const userSchema = mongoose.Schema(
                 id:{type:String}
             }
         ],
+        docLastModified:{type:Date},
+        leaveLastModified:{type:Date},
         documents:{
             relievingLetter:{
                 data: Buffer, 
@@ -122,5 +131,7 @@ const userSchema = mongoose.Schema(
         }
     }
 )
+
+userSchema.plugin(AutoIncrement, {inc_field: 'unique'});
 
 module.exports = mongoose.model('User',userSchema) ;

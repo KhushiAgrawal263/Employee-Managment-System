@@ -37,7 +37,6 @@ function NavBar() {
  const fetchunseennotifications =async ()=>{
     const res = await fetch(`http://localhost:8000/user/get/user/notifi/${id}`);
     const data = await res.json();
-    console.log(data);
     let n =0;
     data.notifications.map((eachnotifi)=>{
       if(eachnotifi.status=="unseen"){
@@ -53,7 +52,6 @@ function NavBar() {
       const dataa = await resd.json();
       const dates=[];
       dataa.forEach(async bd => {
-        console.log(bd.array);
         const [year, month, day] = bd.array.split('-');
         const result = [day,month, year].join('-');
         if(parseInt(today.slice(3, 5))==parseInt(result.slice(3, 5))){
@@ -84,7 +82,6 @@ function NavBar() {
       setEvent(false);
       fetchunseennotifications();
       fetchBirthdayDates();
-      console.log(event,"before");
     },[event]);
   
   
@@ -94,15 +91,12 @@ function NavBar() {
   }
 
   const handleShowNotification=()=>{
-    console.log("lnjhbhgy");
     setShowNotification(true);
   }
 
   const handleCross = (data) => {
     setShowNotification(false)
-    console.log(unseenUserNotifi);
     unseenUserNotifi.map(async (notifi)=>{
-      console.log(id,notifi._id);
       const resd = await fetch(`http://localhost:8000/user/user/updatestatus/${id}/${notifi._id}`,{
         method: 'PUT',
         headers: {
@@ -119,7 +113,7 @@ function NavBar() {
   return (
 
     <div className='nav'>
-      <div className='userNavBar'>
+      <div className='userNavBar' onClick={()=>window.location.href='/home'}>
         {user.image ? <img src={`data:image/png;base64,${user.image.data}`} alt="" /> :<img src="Image/girl.jpg" alt="" />}
         <div>
           <p>{user.name}</p>
